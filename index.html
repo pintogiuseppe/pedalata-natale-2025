@@ -433,16 +433,59 @@ footer {
 (function(){
   const joinSmall = document.querySelector('.join-small');
   if (!joinSmall) return;
-  let joinOffsetTop = null;
-  function computeOffset() { const rect = joinSmall.getBoundingClientRect(); joinOffsetTop = rect.top + window.scrollY; }
-  function setBodyPaddingForCTA(enable){if(enable){const h=joinSmall.getBoundingClientRect().height;document.body.style.paddingBottom=(h+12)+'px';}else{document.body.style.paddingBottom='';}}
+
+  let joinOffsetTop = joinSmall.getBoundingClientRect().top + window.scrollY;
   let isFixed = false;
-  function onScroll(){const scrollY=window.scrollY||window.pageYOffset;if(joinOffsetTop===null)computeOffset();if(scrollY>joinOffsetTop){if(!isFixed){joinSmall.classList.add('fixed');setBodyPaddingForCTA(true);isFixed=true;}}else{if(isFixed){joinSmall.classList.remove('fixed');setBodyPaddingForCTA(false);isFixed=false;}}}
-  let resizeTimer;
-  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{joinSmall.classList.remove('fixed');setBodyPaddingForCTA(false);computeOffset();onScroll();},120);});
-  requestAnimationFrame(()=>{computeOffset();onScroll();});
-  let ticking=false;
-  window.addEventListener('scroll',()=>{if(!ticking){window.requestAnimationFrame(()=>{onScroll();ticking=false;});}ticking=true;},{passive:true});
+
+  function setBodyPaddingForCTA(enable){
+    if(enable){
+      const h = joinSmall.getBoundingClientRect().height;
+      document.body.style.paddingBottom = (h + 12) + 'px';
+    } else {
+      document.body.style.paddingBottom = '';
+    }
+  }
+
+  function onScroll(){
+    const scrollY = window.scrollY || window.pageYOffset;
+
+    // ricalcolo ogni volta, per evitare problemi di rendering dinamico
+    joinOffsetTop = joinSmall.parentElement.getBoundingClientRect().top + window.scrollY;
+
+    if(scrollY + window.innerHeight - joinSmall.offsetHeight - 20 > joinOffsetTop){
+      if(!isFixed){
+        joinSmall.classList.add('fixed');
+        setBodyPaddingForCTA(true);
+        isFixed = true;
+      }
+    } else {
+      if(isFixed){
+        joinSmall.classList.remove('fixed');
+        setBodyPaddingForCTA(false);
+        isFixed = false;
+      }
+    }
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', ()=>{
+    if(!ticking){
+      window.requestAnimationFrame(()=>{
+        onScroll();
+        ticking=false;
+      });
+      ticking=true;
+    }
+  }, {passive:true});
+
+  window.addEventListener('resize', ()=>{
+    joinSmall.classList.remove('fixed');
+    setBodyPaddingForCTA(false);
+    onScroll();
+  });
+
+  // inizializza
+  requestAnimationFrame(onScroll);
 })();
 </script>
 
