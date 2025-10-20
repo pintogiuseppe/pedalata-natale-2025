@@ -218,10 +218,10 @@ a { color: inherit; text-decoration: none; }
   left: 50%;
   transform: translateX(-50%);
   bottom: 84px;
-  width: calc(100% - 32px); /* leggermente più stretto su mobile */
+  width: calc(100% - 32px);
   max-width: 520px;
-  margin: 0 !important;       /* forza margine zero */
-  box-sizing: border-box;     /* evita overflow e oscillazioni */
+  margin: 0 !important;
+  box-sizing: border-box;
   z-index: 1400;
   box-shadow: 0 18px 40px rgba(0,0,0,0.25);
 }
@@ -503,20 +503,106 @@ footer {
 <!-- IntersectionObserver-based CTA sentinel script -->
 <script>
 (function(){
+  const BREAKPOINT = 741; // desktop >= breakpoint -> NO fixed; mobile < breakpoint -> fixed behavior
   const joinSmall = document.querySelector('.join-small');
-  if (!joinSmall) return;
-  let joinOffsetTop = null;
-  function computeOffset() { const rect = joinSmall.getBoundingClientRect(); joinOffsetTop = rect.top + window.scrollY; }
-  function setBodyPaddingForCTA(enable){if(enable){const h=joinSmall.getBoundingClientRect().height;document.body.style.paddingBottom=(h+12)+'px';}else{document.body.style.paddingBottom='';}}
-  let isFixed = false;
-  function onScroll(){const scrollY=window.scrollY||window.pageYOffset;if(joinOffsetTop===null)computeOffset();if(scrollY>joinOffsetTop){if(!isFixed){joinSmall.classList.add('fixed');setBodyPaddingForCTA(true);isFixed=true;}}else{if(isFixed){joinSmall.classList.remove('fixed');setBodyPaddingForCTA(false);isFixed=false;}}}
+  const sentinel = document.getElementById('cta-sentinel');
+
+  if (!joinSmall || !sentinel) return;
+
+  // utility per applicare/remove fixed ed aggiornare il padding-bottom del body
+  function enableFixed() {
+    if (!joinSmall.classList.contains('fixed')) {
+      joinSmall.classList.add('fixed');
+      const h = joinSmall.getBoundingClientRect().height;
+      document.body.style.paddingBottom = (h + 12) + 'px';
+    }
+  }
+  function disableFixed() {
+    if (joinSmall.classList.contains('fixed')) {
+      joinSmall.classList.remove('fixed');
+      document.body.style.paddingBottom = '';
+    }
+  }
+
+  // se IntersectionObserver è disponibile, usalo
+  let io = null;
+  function startObserver() {
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          // se il sentinel non è visibile -> fissiamo
+          if (!entry.isIntersecting) {
+            enableFixed();
+          } else {
+            disableFixed();
+          }
+        });
+      }, { root: null, threshold: 0 });
+      io.observe(sentinel);
+    } else {
+      // fallback: semplice scroll listener (solo mobile)
+      window.addEventListener('scroll', fallbackOnScroll, { passive: true });
+    }
+  }
+
+  function stopObserver() {
+    if (io) {
+      io.disconnect();
+      io = null;
+    } else {
+      window.removeEventListener('scroll', fallbackOnScroll);
+    }
+    disableFixed();
+  }
+
+  // fallback scroll-based (usato solo se IO non supportato)
+  function fallbackOnScroll() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const sentinelRect = sentinel.getBoundingClientRect();
+    const sentinelTop = sentinelRect.top + scrollY;
+    if (scrollY > sentinelTop) enableFixed(); else disableFixed();
+  }
+
+  // abilitazione condizionale in base alla larghezza
+  function updateBehavior() {
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    if (vw < BREAKPOINT) {
+      // mobile: attiva observer / fallback
+      if (!io) startObserver();
+    } else {
+      // desktop: disattiva comportamento fixed e rimuovi observer
+      if (io || true) stopObserver();
+    }
+  }
+
+  // debounce per resize
   let resizeTimer;
-  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{joinSmall.classList.remove('fixed');setBodyPaddingForCTA(false);computeOffset();onScroll();},120);});
-  requestAnimationFrame(()=>{computeOffset();onScroll();});
-  let ticking=false;
-  window.addEventListener('scroll',()=>{if(!ticking){window.requestAnimationFrame(()=>{onScroll();ticking=false;});}ticking=true;},{passive:true});
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      // su resize ricalcoliamo e settiamo stato coerente
+      updateBehavior();
+    }, 120);
+  }, { passive: true });
+
+  // init
+  updateBehavior();
+
+  // in caso la page cambi layout (iframe che carica) forziamo un ricalcolo dopo qualche istante
+  // così l'observer ha la posizione corretta
+  window.addEventListener('load', () => {
+    setTimeout(() => updateBehavior(), 200);
+    setTimeout(() => updateBehavior(), 600);
+  });
+
+  // se l'utente cambia orientation (mobile), aggiorniamo subito
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => updateBehavior(), 200);
+  });
+
 })();
 </script>
+
 
 </body>
 </html>
