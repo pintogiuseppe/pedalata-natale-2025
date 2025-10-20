@@ -198,17 +198,22 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* CTA button padding: corrected syntax */
-.join-small .cta-btn {
-  display: inline-block;
-  background: var(--accent, #c62828);
-  color: #fff;
-  text-shadow: 1px 1px 2px black;
-  padding: 0.55rem 0.95rem;
-  border-radius: 8px;
-  font-family: "Permanent Marker", cursive;
-  font-size: 2rem;
-  font-weight: 800;
-  text-decoration: none;
+.join-small.fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 84px;
+  width: calc(100% - 32px);
+  max-width: 520px;
+  margin: 0 auto !important; /* centro orizzontalmente senza transform */
+  box-sizing: border-box;
+  z-index: 1400;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+  /* disabilitiamo la transizione sulla property che potrebbe causare scatti */
+  transition: none !important;
+  -webkit-transform: none !important;
+  transform: none !important;
+  will-change: bottom, width;
 }
 
 /* CLASS ADDED VIA JS WHEN SENTINEL IS OUT OF VIEW:
@@ -365,6 +370,7 @@ footer {
   .hero-left p.lead { font-size: 0.95rem; }
   .join-small.fixed {
     width: 95%; /* assicura che stia ben centrata anche su schermi piccoli */
+    bottom: 72px; /* leggera riduzione su telefoni molto piccoli */
   }
 }
   </style>
@@ -503,16 +509,17 @@ footer {
 <!-- IntersectionObserver-based CTA sentinel script -->
 <script>
 (function(){
-  const BREAKPOINT = 741; // desktop >= breakpoint -> NO fixed; mobile < breakpoint -> fixed behavior
+  const BREAKPOINT = 741;
   const joinSmall = document.querySelector('.join-small');
   const sentinel = document.getElementById('cta-sentinel');
-
   if (!joinSmall || !sentinel) return;
 
-  // utility per applicare/remove fixed ed aggiornare il padding-bottom del body
+  let io = null;
+
   function enableFixed() {
     if (!joinSmall.classList.contains('fixed')) {
       joinSmall.classList.add('fixed');
+      // aggiungi padding-bottom al body per non coprire contenuto
       const h = joinSmall.getBoundingClientRect().height;
       document.body.style.paddingBottom = (h + 12) + 'px';
     }
@@ -524,85 +531,69 @@ footer {
     }
   }
 
-  // se IntersectionObserver è disponibile, usalo
-  let io = null;
+  // crea observer con rootMargin negativo in basso per evitare flicker
   function startObserver() {
     if ('IntersectionObserver' in window) {
+      // rootMargin: spostiamo la "linea" di trigger più in alto di 84px (evita toggling)
       io = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-          // se il sentinel non è visibile -> fissiamo
           if (!entry.isIntersecting) {
             enableFixed();
           } else {
             disableFixed();
           }
         });
-      }, { root: null, threshold: 0 });
+      }, { root: null, threshold: 0, rootMargin: '0px 0px -84px 0px' });
       io.observe(sentinel);
     } else {
-      // fallback: semplice scroll listener (solo mobile)
-      window.addEventListener('scroll', fallbackOnScroll, { passive: true });
+      // fallback minimale -> scroll listener, anche qui applichiamo hysteresis
+      let lastState = null;
+      const hysteresis = 84;
+      window.addEventListener('scroll', () => {
+        const rect = sentinel.getBoundingClientRect();
+        if (rect.top <= (window.innerHeight - hysteresis)) {
+          if (lastState !== 'fixed') { enableFixed(); lastState = 'fixed'; }
+        } else {
+          if (lastState !== 'flow') { disableFixed(); lastState = 'flow'; }
+        }
+      }, { passive: true });
     }
   }
 
   function stopObserver() {
-    if (io) {
-      io.disconnect();
-      io = null;
-    } else {
-      window.removeEventListener('scroll', fallbackOnScroll);
-    }
+    if (io) { io.disconnect(); io = null; }
     disableFixed();
   }
 
-  // fallback scroll-based (usato solo se IO non supportato)
-  function fallbackOnScroll() {
-    const scrollY = window.scrollY || window.pageYOffset;
-    const sentinelRect = sentinel.getBoundingClientRect();
-    const sentinelTop = sentinelRect.top + scrollY;
-    if (scrollY > sentinelTop) enableFixed(); else disableFixed();
-  }
-
-  // abilitazione condizionale in base alla larghezza
   function updateBehavior() {
     const vw = window.innerWidth || document.documentElement.clientWidth;
     if (vw < BREAKPOINT) {
-      // mobile: attiva observer / fallback
       if (!io) startObserver();
     } else {
-      // desktop: disattiva comportamento fixed e rimuovi observer
-      if (io || true) stopObserver();
+      stopObserver();
     }
   }
 
-  // debounce per resize
+  // debounce resize / orientation
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      // su resize ricalcoliamo e settiamo stato coerente
-      updateBehavior();
-    }, 120);
+    resizeTimer = setTimeout(() => updateBehavior(), 120);
   }, { passive: true });
 
-  // init
-  updateBehavior();
-
-  // in caso la page cambi layout (iframe che carica) forziamo un ricalcolo dopo qualche istante
-  // così l'observer ha la posizione corretta
-  window.addEventListener('load', () => {
-    setTimeout(() => updateBehavior(), 200);
-    setTimeout(() => updateBehavior(), 600);
-  });
-
-  // se l'utente cambia orientation (mobile), aggiorniamo subito
   window.addEventListener('orientationchange', () => {
     setTimeout(() => updateBehavior(), 200);
   });
 
+  // ricalcola dopo il load per coprire iframe/fonts/caricamenti lenti
+  window.addEventListener('load', () => {
+    setTimeout(() => updateBehavior(), 150);
+    setTimeout(() => updateBehavior(), 700);
+  });
+
+  // inizializza subito
+  updateBehavior();
 })();
 </script>
-
-
 </body>
 </html>
