@@ -409,7 +409,25 @@ footer {
 <footer>
   <small>&copy; 2025 Pedalata di Natale — Evento organizzato dai genitori di Colli Aniene</small>
 </footer>
-
+<script>
+(function(){
+  const countdownEl = document.getElementById('countdown');
+  const target = new Date("December 14, 2025 11:30:00").getTime();
+  function render() {
+    const now = Date.now();
+    const diff = target - now;
+    if(diff<=0){countdownEl.textContent="🚴 È il grande giorno!"; clearInterval(timerId); return;}
+    const days = Math.floor(diff/(1000*60*60*24));
+    const hours = Math.floor((diff/(1000*60*60))%24);
+    const minutes = Math.floor((diff/(1000*60))%60);
+    const seconds = Math.floor((diff/1000)%60);
+    countdownEl.innerHTML = `⏳ Mancano ${days} giorni, ${hours} ore, ${minutes} min e ${seconds} sec`;
+  }
+  render();
+  const timerId = setInterval(render, 1000);
+})();
+</script>
+  
 <script>
 (function(){
   const joinSmall = document.querySelector('.join-small');
