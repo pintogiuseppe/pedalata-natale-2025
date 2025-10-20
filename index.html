@@ -504,50 +504,17 @@ footer {
 <script>
 (function(){
   const joinSmall = document.querySelector('.join-small');
-  const sentinel = document.getElementById('cta-sentinel');
-  if (!joinSmall || !sentinel) return;
-
-  function setBodyPaddingForCTA(enable) {
-    if (enable) {
-      const h = joinSmall.getBoundingClientRect().height;
-      document.body.style.paddingBottom = (h + 12) + 'px';
-    } else {
-      document.body.style.paddingBottom = '';
-    }
-  }
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        joinSmall.classList.remove('fixed');
-        setBodyPaddingForCTA(false);
-      } else {
-        joinSmall.classList.add('fixed');
-        setBodyPaddingForCTA(true);
-      }
-    });
-  }, { root: null, threshold: 0 });
-
-  io.observe(sentinel);
-
+  if (!joinSmall) return;
+  let joinOffsetTop = null;
+  function computeOffset() { const rect = joinSmall.getBoundingClientRect(); joinOffsetTop = rect.top + window.scrollY; }
+  function setBodyPaddingForCTA(enable){if(enable){const h=joinSmall.getBoundingClientRect().height;document.body.style.paddingBottom=(h+12)+'px';}else{document.body.style.paddingBottom='';}}
+  let isFixed = false;
+  function onScroll(){const scrollY=window.scrollY||window.pageYOffset;if(joinOffsetTop===null)computeOffset();if(scrollY>joinOffsetTop){if(!isFixed){joinSmall.classList.add('fixed');setBodyPaddingForCTA(true);isFixed=true;}}else{if(isFixed){joinSmall.classList.remove('fixed');setBodyPaddingForCTA(false);isFixed=false;}}}
   let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      if (joinSmall.classList.contains('fixed')) {
-        setBodyPaddingForCTA(true);
-      } else {
-        setBodyPaddingForCTA(false);
-      }
-    }, 120);
-  });
-
-  requestAnimationFrame(() => {
-    if (joinSmall.classList.contains('fixed')) {
-      setBodyPaddingForCTA(true);
-    }
-  });
-
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{joinSmall.classList.remove('fixed');setBodyPaddingForCTA(false);computeOffset();onScroll();},120);});
+  requestAnimationFrame(()=>{computeOffset();onScroll();});
+  let ticking=false;
+  window.addEventListener('scroll',()=>{if(!ticking){window.requestAnimationFrame(()=>{onScroll();ticking=false;});}ticking=true;},{passive:true});
 })();
 </script>
 
