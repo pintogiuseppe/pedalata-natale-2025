@@ -195,8 +195,140 @@ a { color: inherit; text-decoration: none; }
   }
 }
 
-/* --- altri stili ereditati dal tuo file originale (hero, pill-box, cards, footer ecc.) --- */
-/* Per brevità non riscrivo tutto il CSS già presente, puoi mantenere quello originale con le modifiche della CTA */
+/* sentinel element (invisible) used by IntersectionObserver */
+#cta-sentinel {
+  height: 1px;
+  width: 100%;
+  display: block;
+}
+
+/* ========== Countdown (simple) ========== */
+.countdown {
+  text-shadow: 2px 2px 3px black;
+  color: #fff;
+  font-weight: 700;
+  margin-top: 0.2rem;
+  font-size: 1.2rem;
+  text-align: center;
+  font-style: italic;
+}
+
+/* ========== MAIN / SECTIONS ========== */
+.section {
+  max-width: var(--maxw);
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+.section h2 {
+  font-family: "Berkshire Swash", cursive;
+  color: var(--accent);
+  text-align: center;
+  font-size: 1.6rem;
+  margin: 2rem;
+}
+iframe {
+  width: 100%;
+  height: 320px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.cards {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+   gap: 1rem;
+   margin-top: 1rem;
+   animation: fadeInUp 2s ease-out;
+}
+.card {
+  background: #006243;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  padding: 1.2rem;
+  text-align: center;
+  color: #fff;
+  font-family: 'Gagalin', sans-serif; 
+  font-size: 1.3rem;
+  text-shadow: 2px 2px 1px black;
+}
+
+.card2 {
+  background: rgba(255,255,255,0.85);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  padding: 1.2rem;
+  text-align: center;
+  color: #fff;
+  font-family: "Permanent Marker", cursive; 
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 1px white;
+  font-weight: 700; color: var(--accent);
+}
+
+footer {
+  background: #fafafa;
+  text-align: center;
+  padding: 1.2rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* sticky-cta (optional separate button at very bottom) */
+.sticky-cta {
+  display: none;
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1500;
+  text-align: center;
+}
+
+/* DESKTOP / WIDE SCREENS (separate, non-nested) */
+@media (min-width: 741px) {
+  .hero-grid { padding: 3rem 1rem 4rem; }
+  .hero-grid .inner {
+    grid-template-columns: 1fr 420px;
+    gap: 2.2rem;
+    justify-items: stretch;
+  }
+
+  .hero-grid .inner::after {
+    display: block;
+    left: calc(50% + 210px);
+    top: 18%;
+    height: 64%;
+    width: 2px;
+    background: rgba(255,255,255,0.10);
+    border-radius: 2px;
+    transform: translateX(-50%);
+  }
+
+  .hero-left { align-items: flex-start; text-align: left; }
+  .hero-left h1 { font-size: 4.5rem; }
+  .hero-left p.lead { font-size: 1.1rem; }
+
+  .hero-right { align-items: stretch; justify-content: center; }
+  .pill-box { width: calc(100% - 40px); max-width: 420px; margin: 10px auto; }
+  .join-small { width: 100%; max-width: 420px; margin: 1rem auto 0; position: relative; }
+}
+
+/* MOBILE (max-width: 740) */
+@media (max-width: 740px) {
+  .hero-left h1 { font-size: 3rem; }
+  .pill-box {
+    width: calc(100% - 40px) !important;
+    margin: 12px !important;
+    max-width: none;
+  }
+  .pill-inner { grid-template-columns: 1fr 6px 1fr; padding: 0 0.4rem; }
+  .pill-side.left, .pill-side.right { align-items: center; text-align: center; padding: 0; }
+  .join-small { position: relative; }
+  .sticky-cta { display: block; bottom: 12px; }
+}
+}
+
   </style>
 </head>
 <body>
