@@ -412,66 +412,52 @@ footer {
 
 <script>
 (function(){
-  const countdownEl = document.getElementById('countdown');
-  const target = new Date("December 14, 2025 11:30:00").getTime();
-  function render() {
-    const now = Date.now();
-    const diff = target - now;
-    if(diff<=0){countdownEl.textContent="🚴 È il grande giorno!"; clearInterval(timerId); return;}
-    const days = Math.floor(diff/(1000*60*60*24));
-    const hours = Math.floor((diff/(1000*60*60))%24);
-    const minutes = Math.floor((diff/(1000*60))%60);
-    const seconds = Math.floor((diff/1000)%60);
-    countdownEl.innerHTML = `⏳ Mancano ${days} giorni, ${hours} ore, ${minutes} min e ${seconds} sec`;
-  }
-  render();
-  const timerId = setInterval(render, 1000);
-})();
-</script>
-
-<script>
-(function(){
   const joinSmall = document.querySelector('.join-small');
-  if (!joinSmall) return;
+  const sentinel = document.getElementById('cta-sentinel');
+  if (!joinSmall || !sentinel) return;
 
-  let joinOffsetTop = joinSmall.getBoundingClientRect().top + window.scrollY;
-  let isFixed = false;
-
-  function onScroll() {
-    const scrollY = window.scrollY || window.pageYOffset;
-    const viewportWidth = window.innerWidth;
-
-    // Applichiamo la CTA fissa solo sotto i 741px (mobile)
-    if(viewportWidth < 741 && scrollY > joinOffsetTop) {
-      if(!isFixed) {
-        joinSmall.classList.add('fixed');
-        document.body.style.paddingBottom = (joinSmall.getBoundingClientRect().height + 12) + 'px';
-        isFixed = true;
-      }
+  function setBodyPaddingForCTA(enable) {
+    if (enable) {
+      const h = joinSmall.getBoundingClientRect().height;
+      document.body.style.paddingBottom = (h + 12) + 'px';
     } else {
-      if(isFixed) {
-        joinSmall.classList.remove('fixed');
-        document.body.style.paddingBottom = '';
-        isFixed = false;
-      }
+      document.body.style.paddingBottom = '';
     }
   }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        joinSmall.classList.remove('fixed');
+        setBodyPaddingForCTA(false);
+      } else {
+        joinSmall.classList.add('fixed');
+        setBodyPaddingForCTA(true);
+      }
+    });
+  }, { root: null, threshold: 0 });
+
+  io.observe(sentinel);
 
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      joinSmall.classList.remove('fixed');
-      document.body.style.paddingBottom = '';
-      joinOffsetTop = joinSmall.getBoundingClientRect().top + window.scrollY;
-      onScroll();
+      if (joinSmall.classList.contains('fixed')) {
+        setBodyPaddingForCTA(true);
+      } else {
+        setBodyPaddingForCTA(false);
+      }
     }, 120);
   });
 
-  window.addEventListener('scroll', onScroll);
-  requestAnimationFrame(onScroll);
-})();
+  requestAnimationFrame(() => {
+    if (joinSmall.classList.contains('fixed')) {
+      setBodyPaddingForCTA(true);
+    }
+  });
 
+})();
 </script>
 
 </body>
