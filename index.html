@@ -437,56 +437,41 @@ footer {
   let joinOffsetTop = joinSmall.getBoundingClientRect().top + window.scrollY;
   let isFixed = false;
 
-  function setBodyPaddingForCTA(enable){
-    if(enable){
-      const h = joinSmall.getBoundingClientRect().height;
-      document.body.style.paddingBottom = (h + 12) + 'px';
-    } else {
-      document.body.style.paddingBottom = '';
-    }
-  }
-
-  function onScroll(){
+  function onScroll() {
     const scrollY = window.scrollY || window.pageYOffset;
+    const viewportWidth = window.innerWidth;
 
-    // ricalcolo ogni volta, per evitare problemi di rendering dinamico
-    joinOffsetTop = joinSmall.parentElement.getBoundingClientRect().top + window.scrollY;
-
-    if(scrollY + window.innerHeight - joinSmall.offsetHeight - 20 > joinOffsetTop){
-      if(!isFixed){
+    // Applichiamo la CTA fissa solo sotto i 741px (mobile)
+    if(viewportWidth < 741 && scrollY > joinOffsetTop) {
+      if(!isFixed) {
         joinSmall.classList.add('fixed');
-        setBodyPaddingForCTA(true);
+        document.body.style.paddingBottom = (joinSmall.getBoundingClientRect().height + 12) + 'px';
         isFixed = true;
       }
     } else {
-      if(isFixed){
+      if(isFixed) {
         joinSmall.classList.remove('fixed');
-        setBodyPaddingForCTA(false);
+        document.body.style.paddingBottom = '';
         isFixed = false;
       }
     }
   }
 
-  let ticking = false;
-  window.addEventListener('scroll', ()=>{
-    if(!ticking){
-      window.requestAnimationFrame(()=>{
-        onScroll();
-        ticking=false;
-      });
-      ticking=true;
-    }
-  }, {passive:true});
-
-  window.addEventListener('resize', ()=>{
-    joinSmall.classList.remove('fixed');
-    setBodyPaddingForCTA(false);
-    onScroll();
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      joinSmall.classList.remove('fixed');
+      document.body.style.paddingBottom = '';
+      joinOffsetTop = joinSmall.getBoundingClientRect().top + window.scrollY;
+      onScroll();
+    }, 120);
   });
 
-  // inizializza
+  window.addEventListener('scroll', onScroll);
   requestAnimationFrame(onScroll);
 })();
+
 </script>
 
 </body>
