@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow">
   <title>Pedalata di Natale 2025</title>
 
   <!-- Fonts -->
@@ -19,22 +20,12 @@
   --maxw: 1100px;
 }
 
-/* Reset base */
+/* Base */
 * { box-sizing: border-box; }
-html, body { height: 100%; }
-body {
-  margin: 0;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.4;
-}
-
+html, body { height: 100%; margin:0; font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 1.4; }
 a { color: inherit; text-decoration: none; }
 
-/* ========== HERO GRID (mobile-first) ========== */
+/* HERO */
 .hero-grid {
   position: relative;
   background: linear-gradient(rgba(0,0,0,0.86), rgba(0,0,0,0.46)),
@@ -48,7 +39,7 @@ a { color: inherit; text-decoration: none; }
   max-width: var(--maxw);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr; /* mobile-first stacked */
+  grid-template-columns: 1fr;
   gap: 1rem;
   align-items: center;
   position: relative;
@@ -56,10 +47,6 @@ a { color: inherit; text-decoration: none; }
   justify-items: center;
 }
 
-/* decorative divider (enabled on wide screens via media query) */
-.hero-grid .inner::after { content: ""; position: absolute; display: none; }
-
-/* LEFT column (mobile centered) */
 .hero-left {
   display: flex;
   flex-direction: column;
@@ -74,7 +61,6 @@ a { color: inherit; text-decoration: none; }
   margin: 0;
   text-shadow: 0 4px 14px rgba(0,0,0,0.45);
   line-height: 1;
-  text-align: center;
 }
 
 .hero-left p.lead {
@@ -85,18 +71,6 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
-/* Santa thumbnail */
-.santa-thumb {
-  width: 180px;
-  height: 180px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-  border: 4px solid rgba(255,255,255,0.06);
-}
-.santa-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-/* RIGHT column: hero-right (pills & CTA) */
 .hero-right {
   width: 100%;
   display: flex;
@@ -106,7 +80,7 @@ a { color: inherit; text-decoration: none; }
   justify-content: center;
 }
 
-/* ========== PILL BOX ========== */
+/* PILL BOX */
 .pill-box {
   position: relative;
   background: rgba(255,255,255,0.85);
@@ -118,29 +92,11 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px;                 /* keep your requested spacing */
-  width: calc(100% - 40px);     /* account for margin */
+  margin: 20px;
+  width: calc(100% - 40px);
   max-width: 520px;
 }
 
-/* tab label overlapping top */
-.pill-box .tab {
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #006243;
-  color: #fff; /* var(--accent, #c62828); */
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-family: "Berkshire Swash", cursive;
-  font-weight: 700;
-  text-shadow: 2px 2px 1px black;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  font-size: 1.3rem;
-}
-
-/* inner 3-column structure: left | divider | right */
 .pill-inner {
   display: grid;
   grid-template-columns: 1fr 8px 1fr;
@@ -158,7 +114,6 @@ a { color: inherit; text-decoration: none; }
   border-radius: 2px;
 }
 
-/* left/right side */
 .pill-side {
   display: flex;
   flex-direction: column;
@@ -167,14 +122,12 @@ a { color: inherit; text-decoration: none; }
   padding: 5px;
 }
 
-.pill-side .icon { font-size: 1.6rem; color: var(--accent2); }
 .pill-side .label { font-family: "Permanent Marker", cursive; font-weight: 700; color: var(--accent); font-size: 1.2rem; text-shadow: 2px 2px 1px white;}
 .pill-side .value { font-family: 'Gagalin', sans-serif; font-size: 1.2rem; color: #333; text-shadow: 2px 2px 1px white;}
 
-/* ========== JOIN BOX (CTA) ========== */
-/* DEFAULT: in-flow, not fixed */
+/* JOIN CTA - default (in-flow) */
 .join-small {
-  position: relative; /* in-flow di default */
+  position: relative;
   margin: 0 auto;
   background: #e53935;
   color: #fff;
@@ -187,7 +140,7 @@ a { color: inherit; text-decoration: none; }
   width: calc(100% - 40px);
   max-width: 520px;
   transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-  box-sizing: border-box; /* evita overflow */
+  box-sizing: border-box;
 }
 
 .join-small .pretext {
@@ -197,48 +150,42 @@ a { color: inherit; text-decoration: none; }
   opacity: 0.98;
 }
 
-/* CTA button padding: corrected syntax */
+.join-small .cta-btn {
+  display: inline-block;
+  background: var(--accent, #c62828);
+  color: #fff;
+  text-shadow: 1px 1px 2px black;
+  padding: 0.55rem 0.95rem;
+  border-radius: 8px;
+  font-family: "Permanent Marker", cursive;
+  font-size: 2rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* Fixed variant for mobile (we will *always* use it on mobile via media query) */
+/* Center via left/right + margin:auto (no transform) to avoid jitter */
 .join-small.fixed {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 84px;
-  width: calc(100% - 32px);
+  bottom: 12px;                 /* minimal margin to bottom as requested */
+  width: calc(100% - 24px);
   max-width: 520px;
-  margin: 0 auto !important; /* centro orizzontalmente senza transform */
+  margin: 0 auto !important;
   box-sizing: border-box;
   z-index: 1400;
   box-shadow: 0 18px 40px rgba(0,0,0,0.25);
-  /* disabilitiamo la transizione sulla property che potrebbe causare scatti */
-  transition: none !important;
+  transition: none !important; /* instant presence, no transition to avoid jitter */
   -webkit-transform: none !important;
   transform: none !important;
   will-change: bottom, width;
 }
 
-/* CLASS ADDED VIA JS WHEN SENTINEL IS OUT OF VIEW:
-   fixes the CTA to the bottom in overlay mode */
-.join-small.fixed {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 84px;
-  width: calc(100% - 32px);
-  max-width: 520px;
-  margin: 0 !important;
-  box-sizing: border-box;
-  z-index: 1400;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
-}
+/* sentinel */
+#cta-sentinel { height: 1px; width: 100%; display: block; }
 
-/* sentinel element (invisible) used by IntersectionObserver */
-#cta-sentinel {
-  height: 1px;
-  width: 100%;
-  display: block;
-}
-
-/* ========== Countdown (simple) ========== */
+/* Countdown style */
 .countdown {
   text-shadow: 2px 2px 3px black;
   color: #fff;
@@ -249,7 +196,7 @@ a { color: inherit; text-decoration: none; }
   font-style: italic;
 }
 
-/* ========== MAIN / SECTIONS ========== */
+/* Layout sections */
 .section {
   max-width: var(--maxw);
   margin: 3rem auto;
@@ -275,7 +222,6 @@ iframe {
    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
    gap: 1rem;
    margin-top: 1rem;
-   animation: fadeInUp 2s ease-out;
 }
 .card {
   background: #006243;
@@ -310,18 +256,7 @@ footer {
   font-size: 0.9rem;
 }
 
-/* sticky-cta (optional separate button at very bottom) */
-.sticky-cta {
-  display: none;
-  position: fixed;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  z-index: 1500;
-  text-align: center;
-}
-
-/* DESKTOP / WIDE SCREENS (separate, non-nested) */
+/* Desktop / wide screens */
 @media (min-width: 741px) {
   .hero-grid { padding: 3rem 1rem 4rem; }
   .hero-grid .inner {
@@ -329,49 +264,39 @@ footer {
     gap: 2.2rem;
     justify-items: stretch;
   }
-
-  .hero-grid .inner::after {
-    display: block;
-    left: calc(50% + 210px);
-    top: 18%;
-    height: 64%;
-    width: 2px;
-    background: rgba(255,255,255,0.10);
-    border-radius: 2px;
-    transform: translateX(-50%);
-  }
-
   .hero-left { align-items: flex-start; text-align: left; }
   .hero-left h1 { font-size: 4.5rem; }
   .hero-left p.lead { font-size: 1.1rem; }
-
-  .hero-right { align-items: stretch; justify-content: center; }
   .pill-box { width: calc(100% - 40px); max-width: 420px; margin: 10px auto; }
+  /* keep CTA in-flow on desktop (no fixed behavior) */
   .join-small { width: 100%; max-width: 420px; margin: 1rem auto 0; position: relative; }
 }
 
-/* MOBILE (max-width: 740) */
+/* Mobile: force fixed CTA variant by default (we also add JS padding) */
 @media (max-width: 740px) {
-  .hero-left h1 { font-size: 3rem; }
-  .pill-box {
-    width: calc(100% - 40px) !important;
-    margin: 12px !important;
-    max-width: none;
+  /* Apply fixed variant permanently on mobile */
+  .join-small {
+    /* add class-like properties so it appears fixed even without JS initially */
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    width: calc(100% - 24px);
+    max-width: 520px;
+    margin: 0 auto !important;
+    box-sizing: border-box;
+    z-index: 1400;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+    transition: none !important;
   }
-  .pill-inner { grid-template-columns: 1fr 6px 1fr; padding: 0 0.4rem; }
-  .pill-side.left, .pill-side.right { align-items: center; text-align: center; padding: 0; }
-  .join-small { position: relative; }
-  .sticky-cta { display: block; bottom: 12px; }
+
+  /* ensure header content doesn't overlap too much visually (if needed) */
+  body { padding-bottom: 0; } /* actual padding-bottom will be set by JS */
 }
 
-/* SMALL PHONES (separate) */
+/* small phones tweak */
 @media (max-width: 420px) {
-  .hero-left h1 { font-size: 3rem; }
-  .hero-left p.lead { font-size: 0.95rem; }
-  .join-small.fixed {
-    width: 95%; /* assicura che stia ben centrata anche su schermi piccoli */
-    bottom: 72px; /* leggera riduzione su telefoni molto piccoli */
-  }
+  .join-small { width: 95%; bottom: 10px; }
 }
   </style>
 </head>
@@ -381,16 +306,14 @@ footer {
   <header class="hero-grid" role="banner" aria-label="Hero - Pedalata di Natale">
     <div class="inner">
 
-      <!-- LEFT: title + thumb + countdown -->
       <div class="hero-left">
         <h1>Pedalata di Natale 2025</h1>
         <p class="lead">Un’allegra pedalata/passeggiata nella magia del Natale aperta a tutti: bambini, adulti, famiglie e amici!</p>
       </div>
 
-      <!-- RIGHT: stacked pills (desktop) / stacked full-width (mobile) -->
       <div class="hero-right" role="region" aria-label="Informazioni rapide">
         <div class="pill-box" role="group" aria-label="Quando">
-          <div class="pill-inner" role="presentation">
+          <div class="pill-inner">
             <div class="pill-side left">
               <div class="label">Data</div>
               <div class="value">14 Dicembre</div>
@@ -421,17 +344,17 @@ footer {
           </div>
         </div>
 
-        <!-- CTA (pretext OUTSIDE link for accessibility) -->
+        <!-- CTA: in desktop remains in-flow; on mobile CSS above forces it fixed -->
         <div class="join-small" role="region" aria-label="Iscriviti">
           <div class="pretext">Unisciti a noi</div>
           <a class="cta-btn" href="https://forms.gle/VrYPRFbYx7stWcEV7" target="_blank" rel="noopener noreferrer">ISCRIVITI ORA!</a>
         </div>
 
+        <!-- countdown (kept in header flow) -->
         <div id="countdown" class="countdown" aria-live="polite" aria-atomic="true"></div>
 
-        <!-- Sentinel used to detect scrolling past the CTA -->
+        <!-- sentinel left for possible future use -->
         <div id="cta-sentinel" aria-hidden="true"></div>
-
       </div>
     </div>
   </header>
@@ -478,12 +401,11 @@ footer {
     <small>&copy; 2025 Pedalata di Natale — Evento organizzato dai genitori di Colli Aniene</small>
   </footer>
 
-  <!-- Countdown script -->
- <script>
+  <!-- Countdown script (unchanged) -->
+  <script>
     (function(){
       const countdownEl = document.getElementById('countdown');
       const target = new Date("December 14, 2025 11:30:00").getTime();
-
       function render() {
         const now = Date.now();
         const diff = target - now;
@@ -496,104 +418,42 @@ footer {
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
         const seconds = Math.floor((diff / 1000) % 60);
-
         countdownEl.innerHTML = `⏳ Mancano ${days} giorni, ${hours} ore, ${minutes} min e ${seconds} sec`;
       }
-
       render();
-
       const timerId = setInterval(render, 1000);
     })();
-</script>
+  </script>
 
-<!-- IntersectionObserver-based CTA sentinel script -->
-<script>
-(function(){
-  const BREAKPOINT = 741;
-  const joinSmall = document.querySelector('.join-small');
-  const sentinel = document.getElementById('cta-sentinel');
-  if (!joinSmall || !sentinel) return;
+  <!-- Minimal JS to set body padding on mobile so content is not covered by fixed CTA -->
+  <script>
+    (function(){
+      const joinSmall = document.querySelector('.join-small');
+      if (!joinSmall) return;
 
-  let io = null;
+      const MOBILE_BREAKPOINT = 740;
 
-  function enableFixed() {
-    if (!joinSmall.classList.contains('fixed')) {
-      joinSmall.classList.add('fixed');
-      // aggiungi padding-bottom al body per non coprire contenuto
-      const h = joinSmall.getBoundingClientRect().height;
-      document.body.style.paddingBottom = (h + 12) + 'px';
-    }
-  }
-  function disableFixed() {
-    if (joinSmall.classList.contains('fixed')) {
-      joinSmall.classList.remove('fixed');
-      document.body.style.paddingBottom = '';
-    }
-  }
-
-  // crea observer con rootMargin negativo in basso per evitare flicker
-  function startObserver() {
-    if ('IntersectionObserver' in window) {
-      // rootMargin: spostiamo la "linea" di trigger più in alto di 84px (evita toggling)
-      io = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) {
-            enableFixed();
-          } else {
-            disableFixed();
-          }
-        });
-      }, { root: null, threshold: 0, rootMargin: '0px 0px -84px 0px' });
-      io.observe(sentinel);
-    } else {
-      // fallback minimale -> scroll listener, anche qui applichiamo hysteresis
-      let lastState = null;
-      const hysteresis = 84;
-      window.addEventListener('scroll', () => {
-        const rect = sentinel.getBoundingClientRect();
-        if (rect.top <= (window.innerHeight - hysteresis)) {
-          if (lastState !== 'fixed') { enableFixed(); lastState = 'fixed'; }
+      function applyPaddingIfMobile() {
+        const vw = window.innerWidth || document.documentElement.clientWidth;
+        if (vw <= MOBILE_BREAKPOINT) {
+          const h = joinSmall.getBoundingClientRect().height;
+          // add a small extra space so the CTA doesn't sit glued to content
+          document.body.style.paddingBottom = (h + 16) + 'px';
         } else {
-          if (lastState !== 'flow') { disableFixed(); lastState = 'flow'; }
+          document.body.style.paddingBottom = '';
         }
-      }, { passive: true });
-    }
-  }
+      }
 
-  function stopObserver() {
-    if (io) { io.disconnect(); io = null; }
-    disableFixed();
-  }
+      // run on load and resize/orientation change (debounced)
+      window.addEventListener('load', applyPaddingIfMobile);
+      let t;
+      window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(applyPaddingIfMobile, 120); });
+      window.addEventListener('orientationchange', () => { setTimeout(applyPaddingIfMobile, 120); });
 
-  function updateBehavior() {
-    const vw = window.innerWidth || document.documentElement.clientWidth;
-    if (vw < BREAKPOINT) {
-      if (!io) startObserver();
-    } else {
-      stopObserver();
-    }
-  }
+      // initial
+      applyPaddingIfMobile();
+    })();
+  </script>
 
-  // debounce resize / orientation
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => updateBehavior(), 120);
-  }, { passive: true });
-
-  window.addEventListener('orientationchange', () => {
-    setTimeout(() => updateBehavior(), 200);
-  });
-
-  // ricalcola dopo il load per coprire iframe/fonts/caricamenti lenti
-  window.addEventListener('load', () => {
-    setTimeout(() => updateBehavior(), 150);
-    setTimeout(() => updateBehavior(), 700);
-  });
-
-  // inizializza subito
-  updateBehavior();
-})();
-</script>
 </body>
 </html>
