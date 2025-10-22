@@ -283,18 +283,28 @@ iframe {
   font-style: italic;
   text-shadow: 2px 2px 1px white;
   display: flex;
+  flex-direction: column; /* immagine sopra, testo sotto */
   align-items: center;
   justify-content: center;
-  min-height: 100px; /* così la griglia resta uniforme */
+  min-height: 100px;
 }
 
-/* immagini dei loghi */
+/* stile immagini */
 .card2 img {
   max-width: 100%;
   max-height: 60px;
   object-fit: contain;
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 0.5rem; /* aggiunto un piccolo spazio sotto */
+}
+
+/* testo sotto i loghi */
+.card2 p {
+  font-size: 0.6rem;
+  color: #000;
+  text-align: left;
+  margin: 0;
+  line-height: 1.3;
 }
 
 /* placeholder automatico per card vuote */
@@ -468,7 +478,10 @@ footer {
       <h2>🤝 Sponsor</h2>
       <div class="cards" aria-label="Sponsor">
         <div class="card2"><img src="assets\img\inkpiu.jpeg" alt="Logo Sponsor"></div>
-        <div class="card2"></div>
+        <div class="card2"><img src="assets\img\tecnorete.svg" alt="Logo Sponsor">
+		<p>Affiliato<br>
+		<strong>Studio Immobiliare Colli Aniene Srl</strong><br>
+		Via Ettore Franceschini, 97 00155 Roma (RM)</p></div>
         <div class="card2"></div>
         <div class="card2"></div>
       </div>
