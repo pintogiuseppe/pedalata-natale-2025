@@ -6,513 +6,186 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Pedalata di Natale 2025</title>
 
-  <!-- Fonts -->
+  <!-- Fonts (lasciati come erano; li sostituirai quando caricherai online) -->
   <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/gagalin" rel="stylesheet">
-<!-- 🧭 Open Graph (Facebook, WhatsApp, Telegram, LinkedIn) -->
-<meta property="og:title" content="Pedalata di Natale 2025 🎄🚴">
-<meta property="og:description" content="Partecipa alla Pedalata di Natale 2025! Un evento gratuito e divertente per tutta la famiglia tra le vie del Municipio IV di Roma.">
-<meta property="og:image" content="https://pintogiuseppe.github.io/pedalata-natale-2025/assets/img/anteprima.jpg">
-<meta property="og:url" content="https://pintogiuseppe.github.io/pedalata-natale-2025/">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="it_IT">
-
-<!-- 🐦 Twitter Card (serve anche per WhatsApp su Android) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Pedalata di Natale 2025 🎄🚴‍">
-<meta name="twitter:description" content="Scopri la Pedalata di Natale 2025 – evento culturale e sportivo aperto a tutti!">
-<meta name="twitter:image" content="https://pintogiuseppe.github.io/pedalata-natale-2025/assets/img/anteprima.jpg">
-
-<!-- 📱 (facoltativo) favicon e tema mobile -->
-<link rel="icon" type="image/png" href="https://pintogiuseppe.github.io/pedalata-natale-2025/assets/img/favicon.png">
-<meta name="theme-color" content="#c60000">
+  <link href="https://fonts.cdnfonts.com/css/gagalin" rel="stylesheet">  
 
   <style>
-	  .top-bar {
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  padding: 0.4rem 1rem;
-}
+    /* ======================================================== */
+    /* Variables & Reset - mobile-first                         */
+    /* ======================================================== */
+    :root{
+      --accent: #e53935;
+      --accent2: #2e7d32;
+      --bg: #fffdf8;
+      --text: #222;
+      --maxw: 1100px;
+      --logo-h: 96px;    /* default comfortable size */
+      --logo-gap: 1rem;
+      --cta-space-mobile: 100px; /* fallback space for fixed CTA on small screens */
+    }
 
-.top-bar-content {
-  display: flex;
-  justify-content: center;      /* <-- tutto centrato orizzontalmente */
-  align-items: center;
-  gap: 3rem;
-  max-width: 1100px;
-  margin: 0 auto;               /* <-- centra il contenitore nella pagina */
-  width: 100%;
-  flex-wrap: wrap;
-}
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin:0; font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 1.4; }
+    a { color: inherit; text-decoration: none; }
 
-.organizers, .patrocinio {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 1.2rem;
-  color: #333;
-  font-weight: 600;
-}
+    /* Top bar */
+    .top-bar {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 0.4rem 1rem;
+    }
+    .top-bar-content { display:flex; justify-content:center; align-items:center; gap:1rem; max-width:var(--maxw); margin:0 auto; width:100%; flex-wrap:wrap; }
+    .organizers, .patrocinio { display:flex; align-items:center; gap:0.6rem; font-size:1rem; color:#333; font-weight:600; }
+    .organizers span, .patrocinio span { display:inline-block; white-space:nowrap; margin-right:0.4rem; }
+    .top-bar img { height:48px; width:auto; display:block; object-fit:contain; }
 
-/* piccole regolazioni sui testi per evitare che si allarghino troppo */
-.organizers span, .patrocinio span {
-  display: inline-block;
-  white-space: nowrap;
-  margin-right: 0.4rem;
-}
+    /* Hero (mobile-first) */
+    .hero-grid {
+      position:relative;
+      background: linear-gradient(rgba(0,0,0,0.56), rgba(0,0,0,0.46)), url("https://cdn.pixabay.com/photo/2022/09/09/14/55/santa-claus-7443132_1280.jpg") center/cover no-repeat;
+      color: #fff;
+      padding: 1.6rem 1rem 3.6rem;
+      overflow:hidden;
+    }
+    .hero-grid .inner { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: center; position: relative; z-index: 1; justify-items: center; }
+    .hero-left { display:flex; flex-direction:column; align-items:center; gap:0.6rem; text-align:center; }
+    .hero-left h1 { font-family: "Berkshire Swash", cursive; font-size: clamp(2rem, 6vw, 2.8rem); text-align: center; margin:0; text-shadow:0 4px 12px rgba(0,0,0,0.45); line-height:1.05; }
+    .hero-left p.lead { margin-top:6px; font-size:1.2rem; color:#ffecec; text-align:center; font-style:italic; }
 
-/* immagini dei loghi */
-.top-bar img {
-  height: 60px;
-  width: auto;
-  display: block;
-  object-fit: contain;
-}
-@media (max-width: 480px) {
-.top-bar-content {
-gap: 1rem;
-}
- .top-bar img {
-    height: 45px;
-  }
-}
-:root {
-  --accent: #e53935;
-  --accent2: #2e7d32;
-  --bg: #fffdf8;
-  --text: #222;
-  --maxw: 1100px;
-}
+    .hero-right { width:100%; display:flex; flex-direction:column; gap:0.9rem; align-items:center; justify-content:center; }
 
-/* Base */
-* { box-sizing: border-box; }
-html, body { height: 100%; margin:0; font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 1.4; }
-a { color: inherit; text-decoration: none; }
+    /* Pill box */
+    .pill-box { position:relative; background: rgba(255,255,255,0.92); color:#222; border-radius:12px; padding:0.85rem; box-shadow:0 8px 22px rgba(0,0,0,0.10); min-height:100px; display:flex; align-items:center; justify-content:center; margin: 14px; width: calc(100% - 28px); max-width:520px; }
+    .pill-inner { display:grid; grid-template-columns:1fr 8px 1fr; gap:0.6rem; align-items:center; width:100%; padding:0 0.5rem; }
+    .divider { width:2px; height:70%; background: rgba(0,0,0,0.06); justify-self:center; border-radius:2px; }
+    .pill-side { display:flex; flex-direction:column; gap:4px; text-align:center; padding:5px; }
+    .pill-side .label { font-family: "Permanent Marker", cursive; font-weight:700; color:var(--accent); font-size:1.2rem; text-shadow:1px 1px 0 white; }
+    .pill-side .value { font-family: 'Gagalin', sans-serif; font-size:1.2rem; color:#333; }
 
-/* HERO */
-.hero-grid {
-  position: relative;
-  background: linear-gradient(rgba(0,0,0,0.46), rgba(0,0,0,0.46)),
-              url("https://cdn.pixabay.com/photo/2022/09/09/14/55/santa-claus-7443132_1280.jpg") center/cover no-repeat;
-  color: #fff;
-  padding: 2.2rem 1rem 3.6rem;
-  overflow: hidden;
-}
+    /* CTA - mobile-first (fixed on mobile via media query) */
+    .join-small { position: relative; margin: 0 auto; background: var(--accent); color: #fff; padding: 0.95rem; border-radius: 10px; border: 5px solid rgba(255,255,255,0.9); text-align: center; font-weight:700; box-shadow: 0 8px 22px rgba(229,57,53,0.18); width: calc(100% - 40px); max-width:520px; transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease; box-sizing: border-box; }
+    .join-small .pretext { font-size:clamp(1.4rem, 5vw, 1.8rem); font-family: "Permanent Marker", cursive; font-weight:500; margin-bottom:0.5rem; }
+    .join-small .cta-btn { display:inline-block; background:var(--accent); color:#fff; text-shadow:2px 2px 3px rgba(0,0,0,0.6); padding:0.6rem 1rem; border-radius:8px; font-family: "Permanent Marker", cursive; font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight:800; text-decoration:none; }
 
-.hero-grid .inner {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-  justify-items: center;
-}
+    /* Countdown */
+    .countdown { text-shadow:2px 2px 3px rgba(0,0,0,0.6); color:#fff; font-weight:700; margin-top:0.2rem; font-size:1.05rem; text-align:center; font-style:italic; }
 
-.hero-left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;
-  text-align: center;
-}
+    /* Sections */
+    .section { max-width: var(--maxw); margin: 3.2rem auto; padding: 0 1rem; }
+    .section h2 { font-family: "Berkshire Swash", cursive; color:var(--accent); text-align:center; font-size:1.8rem; margin:1rem 0; }
+    .section a { text-decoration: underline; color: #000; }
 
-.hero-left h1 {
-  font-family: "Berkshire Swash", cursive;
-  font-size: 2rem;
-  margin: 0;
-  text-shadow: 0 4px 14px rgba(0,0,0,0.45);
-  line-height: 1;
-  text-align: center;
-}
+    /* Map controls */
+    .map-controls { display:flex; justify-content:center; gap:1rem; margin-bottom:1rem; flex-wrap:wrap; }
+    .map-btn { background:#eee; border:none; padding:0.6rem 1.2rem; border-radius:8px; font-weight:600; font-size:0.95rem; cursor:pointer; transition: background 0.2s, transform 0.12s; }
+    .map-btn:hover { background:#e9e9e9; transform: translateY(-2px); }
+    .map-btn.active { background: var(--accent2); color:#fff; }
 
-.hero-left p.lead {
-  margin-top: 10px;
-  font-size: 1.1rem;
-  color: #ffecec;
-  text-align: center;
-  font-style: italic;
-}
+    .map-frame { display:none; }
+    .map-frame.active { display:block; }
 
-.hero-right {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-  justify-content: center;
-}
+    iframe { width:100%; height:320px; border:none; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
 
-/* PILL BOX */
-.pill-box {
-  position: relative;
-  background: rgba(255,255,255,0.85);
-  color: #222;
-  border-radius: 12px;
-  padding: 0.6rem;
-  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
-  min-height: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
-  width: calc(100% - 40px);
-  max-width: 520px;
-}
+    /* Cards */
+    .mappe-container { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem; margin-top:1.5rem; }
+    .mappa-card { background: rgba(255,255,255,0.92); border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.12); padding:1rem; text-align:center; transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .mappa-card:hover { transform: translateY(-4px); box-shadow:0 6px 18px rgba(0,0,0,0.16); }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:1rem; margin-top:1rem; }
+	.card { background: #006243; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.18); padding:1rem; text-align:center; color:#fff; font-family: 'Gagalin', sans-serif; font-size:1.05rem; text-shadow:2px 2px 1px rgba(0,0,0,0.6); min-height:100px; display:flex; align-items:center; justify-content:center; }
+    .card2 { background: rgba(255,255,255,0.92); border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.12); padding:1rem; text-align:center; color:var(--accent); font-size:1rem; font-style:italic; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100px; }
+    .card2 img { max-width:100%; max-height:60px; object-fit:contain; display:block; margin:0 auto 0.5rem; }
+    .card2 p { font-size:0.75rem; color:#000; text-align:left; margin:0; line-height:1.3; }
+    .card2:empty::before { content: "In arrivo"; color:#999; font-style:italic; font-size:1rem; }
+	.card.babbo-natale { z-index:0; position: relative; background: url('https://cdn.pixabay.com/photo/2021/11/17/16/31/christmas-6804045_1280.jpg') center/cover no-repeat; color: #fff; font-size: 1.6rem;
+	padding: 1.5rem; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; display: flex; justify-content: center;
+	align-items: center; height: 280px; /* Altezza aumentata solo per la card di Babbo Natale */ margin: 20px auto; /* Centra la card */}
+    .card.babbo-natale::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); /* Overlay scuro */ border-radius: 15px;}
+   .card.babbo-natale strong { position: relative; font-family: 'Permanent Marker', cursive; font-size: 1.8rem; z-index: 1;}
 
-.pill-inner {
-  display: grid;
-  grid-template-columns: 1fr 8px 1fr;
-  gap: 0.6rem;
-  align-items: center;
-  width: 100%;
-  padding: 0 0.5rem;
-}
 
-.pill-inner .divider {
-  width: 2px;
-  height: 70%;
-  background: rgba(0,0,0,0.06);
-  justify-self: center;
-  border-radius: 2px;
-}
+    /* Logo grid */
+    .logo-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:var(--logo-gap); align-items:center; justify-items:center; margin-top:1rem; padding:0.25rem; }
+    .logo-item { width:100%; max-width:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0.65rem; background: rgba(255,255,255,0.92); border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.06); min-height:120px; }
+    .logo-item img { max-height:var(--logo-h); max-width:100%; width:auto; height:auto; object-fit:contain; display:block; margin:0 auto; }
+    .logo-caption { margin-top:0.45rem; font-size:0.85rem; color:#333; text-align:center; line-height:1.2; }
 
-.pill-side {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  text-align: center;
-  padding: 5px;
-}
+    footer { background:#fafafa; text-align:center; padding:1.2rem; color:#666; font-size:0.9rem; margin-top:2.2rem; }
 
-.pill-side .label { font-family: "Permanent Marker", cursive; font-weight: 700; color: var(--accent); font-size: 1.2rem; text-shadow: 2px 2px 1px white;}
-.pill-side .value { font-family: 'Gagalin', sans-serif; font-size: 1.2rem; color: #333; text-shadow: 2px 2px 1px white;}
+    /* ======================================================== */
+    /* Media queries - Mobile-first, desktop enhancements         */
+    /* ======================================================== */
+    @media (max-width: 480px) {
+      .top-bar img { height:36px; }
+      :root { --logo-h: 64px; }
+      .hero-left h1 { font-size: clamp(2rem, 8vw, 2.4rem); }
+      .join-small { width: calc(100% - 24px); box-sizing:border-box; z-index:1500;}
+      .join-small .cta-btn { font-size: clamp(1.2rem, 5vw, 1.6rem); }
+      .join-small { position: fixed; left: 0; right: 0; bottom: 10px; margin:0 auto; z-index:1400; box-shadow: 0 18px 40px rgba(0,0,0,0.25); transition:none; }
+      body { padding-bottom: var(--cta-space-mobile); } /* CSS fallback; JS will set precise padding */
+      .card { font-size: 1rem; }
+    }
 
-/* JOIN CTA - default (in-flow) */
-.join-small {
-  position: relative;
-  margin: 0 auto;
-  background: #e53935;
-  color: #fff;
-  padding: 0.9rem;
-  border-radius: 10px;
-  border: 5px solid rgba(255,255,255,0.85);
-  text-align: center;
-  font-weight: 700;
-  box-shadow: 0 8px 22px rgba(229,57,53,0.25);
-  width: calc(100% - 40px);
-  max-width: 520px;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-  box-sizing: border-box;
-}
+    @media (min-width: 481px) and (max-width: 740px) {
+      :root { --logo-h: 74px; }
+      .hero-left h1 { font-size: clamp(2.2rem, 6.5vw, 3rem); }
+      .join-small { position: fixed; left: 0; right: 0; bottom: 12px; width: calc(100% - 24px); max-width:520px; margin:0 auto; z-index:1500; box-shadow:0 18px 40px rgba(0,0,0,0.22); transition:none; }
+      body { padding-bottom: var(--cta-space-mobile); }
+	  .card.babbo-natale {  height: 240px; /* Altezza ridotta su mobile per adattarsi meglio */ }
+      .card {font-size: 1.2rem; /* Rende il testo un po' più piccolo su mobile */ }
+    }
 
-.join-small .pretext {
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  opacity: 0.98;
-}
+    @media (min-width: 741px) {
+      /* Desktop: spacious, impactful */
+      :root { --logo-h: 110px; }
+      .hero-grid { padding: 3rem 1rem 4rem; }
+      .hero-grid .inner { grid-template-columns: 1fr 420px; gap:2.2rem; justify-items:stretch; }
+      .hero-left { align-items:flex-start; text-align:left; }
+      .hero-left h1 { font-size: clamp(3rem, 6vw, 5rem); line-height:1.02; }
+      .pill-box { padding: 1.4rem; min-height:130px; border-radius:16px; }
+      .card, .card2 { /* min-height:140px; */ padding:1.4rem; font-size:1.25rem; }
+      .join-small { width: 100%; max-width: 420px; margin: 1rem auto 0; position: relative; }
+      .join-small .cta-btn { font-size: clamp(1.8rem, 3vw, 2.4rem); padding: 0.8rem 1.4rem; }
+      .top-bar img { height:60px; }
+      body { padding-bottom: 0; } /* no fixed CTA on desktop */
+    }
 
-.join-small .cta-btn {
-  display: inline-block;
-  background: var(--accent, #c62828);
-  color: #fff;
-  text-shadow: 1px 1px 2px black;
-  padding: 0.55rem 0.95rem;
-  border-radius: 8px;
-  font-family: "Permanent Marker", cursive;
-  font-size: 2rem;
-  font-weight: 800;
-  text-decoration: none;
-}
-
-/* Fixed variant for mobile (we will *always* use it on mobile via media query) */
-/* Center via left/right + margin:auto (no transform) to avoid jitter */
-.join-small.fixed {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 12px;                 /* minimal margin to bottom as requested */
-  width: calc(100% - 24px);
-  max-width: 520px;
-  margin: 0 auto !important;
-  box-sizing: border-box;
-  z-index: 1400;
-  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
-  transition: none !important; /* instant presence, no transition to avoid jitter */
-  -webkit-transform: none !important;
-  transform: none !important;
-  will-change: bottom, width;
-}
-
-/* sentinel */
-#cta-sentinel { height: 1px; width: 100%; display: block; }
-
-/* Countdown style */
-.countdown {
-  text-shadow: 2px 2px 3px black;
-  color: #fff;
-  font-weight: 700;
-  margin-top: 0.2rem;
-  font-size: 1.2rem;
-  text-align: center;
-  font-style: italic;
-}
-
-/* Layout sections */
-.section {
-  max-width: var(--maxw);
-  margin: 3rem auto;
-  padding: 0 1rem;
-}
-.section h2 {
-  font-family: "Berkshire Swash", cursive;
-  color: var(--accent);
-  text-align: center;
-  font-size: 1.6rem;
-  margin: 2rem;
-}
-/* iframe {
-  width: 100%;
-  height: 320px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-} */
-
-.map-btn {
-  background: #eee;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-}
-.map-btn:hover { background: #ddd; transform: scale(1.03); }
-.map-btn.active { background: #006243; /* var(--accent); */ color: #fff; }
-
-.map-frame { display: none; }
-.map-frame.active { display: block; }
-
-iframe {
-  width: 100%;
-  height: 320px;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-}
-
-/* --- Logo Grid per i Promotori (responsive, centrata, logo-size facilmente modificabile) --- */
-
-/* variabile per regolare velocemente l'altezza massima dei loghi */
-:root {
-  --logo-h: 92px; /* cambia questo valore per ingrandire/ridurre i loghi */
-  --logo-gap: 1rem;
-}
-
-/* griglia container */
-.logo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: var(--logo-gap);
-  align-items: center;
-  justify-items: center;
-  margin-top: 1rem;
-  padding: 0.25rem;
-}
-
-/* singolo item */
-.logo-item {
-  width: 100%;
-  max-width: 260px;         /* limita larghezza massima di ciascuna cella */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.65rem;
-  background: rgba(255,255,255,0.85); /* opzionale */
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-  min-height: 120px;        /* assicura uniformità di riga */
-}
-
-/* immagine del logo */
-.logo-item img {
-  max-height: var(--logo-h);
-  max-width: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
-/* didascalia (opzionale) */
-.logo-caption {
-  margin-top: 0.45rem;
-  font-size: 0.85rem;
-  color: #333;
-  text-align: center;
-  line-height: 1.2;
-}
-
-/* adattamenti responsive */
-@media (max-width: 900px) {
-  :root { --logo-h: 74px; }
-  .logo-item { min-height: 120px; }
-}
-@media (max-width: 480px) {
-  :root { --logo-h: 64px; }
-  .logo-grid { gap: 0.6rem; }
-  .logo-item { padding: 0.5rem; /* min-height: 120px; */ }
-}
-
-.cards {
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-   gap: 1rem;
-   margin-top: 1rem;
-}
-.card {
-  background: #006243;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  padding: 1.2rem;
-  text-align: center;
-  color: #fff;
-  font-family: 'Gagalin', sans-serif; 
-  font-size: 1.3rem;
-  text-shadow: 2px 2px 1px black;
-}
-
-/* .card2 {
-  background: rgba(255,255,255,0.85);
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  padding: 1.2rem;
-  text-align: center;
-  color: #fff;
-  font-family: "Permanent Marker", cursive; 
-  font-size: 1.2rem;
-  text-shadow: 2px 2px 1px white;
-  font-weight: 700; color: var(--accent);
-} */
-
-.card2 {
-  background: rgba(255,255,255,0.85);
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  padding: 1.2rem;
-  text-align: center;
-  color: var(--accent);
-  font-size: 1.2rem;
-  font-style: italic;
-  text-shadow: 2px 2px 1px white;
-  display: flex;
-  flex-direction: column; /* immagine sopra, testo sotto */
-  align-items: center;
-  justify-content: center;
-  min-height: 100px;
-}
-
-/* stile immagini */
-.card2 img {
-  max-width: 100%;
-  max-height: 60px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 0.5rem; /* aggiunto un piccolo spazio sotto */
-}
-
-/* testo sotto i loghi */
-.card2 p {
-  font-size: 0.6rem;
-  color: #000;
-  text-align: left;
-  margin: 0;
-  line-height: 1.3;
-}
-
-/* placeholder automatico per card vuote */
-.card2:empty::before {
-  content: "In arrivo";
-  color: #999;
-  font-style: italic;
-  font-size: 1rem;
-  text-shadow: none;
-}
-
-footer {
-  background: #fafafa;
-  text-align: center;
-  padding: 1.2rem;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-/* Desktop / wide screens */
-@media (min-width: 741px) {
-  .hero-grid { padding: 3rem 1rem 4rem; }
-  .hero-grid .inner {
-    grid-template-columns: 1fr 420px;
-    gap: 2.2rem;
-    justify-items: stretch;
-  }
-  .hero-left { align-items: flex-start; text-align: left; }
-  .hero-left h1 { font-size: 4.5rem; }
-  .hero-left p.lead { font-size: 1.1rem; }
-  .pill-box { width: calc(100% - 40px); max-width: 420px; margin: 10px auto; }
-  /* keep CTA in-flow on desktop (no fixed behavior) */
-  .join-small { width: 100%; max-width: 420px; margin: 1rem auto 0; position: relative; }
-}
-
-/* Mobile: force fixed CTA variant by default (we also add JS padding) */
-@media (max-width: 740px) {
-  /* Apply fixed variant permanently on mobile */
-  .join-small {
-    /* add class-like properties so it appears fixed even without JS initially */
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 12px;
-    width: calc(100% - 24px);
-    max-width: 520px;
-    margin: 0 auto !important;
-    box-sizing: border-box;
-    z-index: 1400;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
-    transition: none !important;
-  }
-
-  /* ensure header content doesn't overlap too much visually (if needed) */
-  body { padding-bottom: 0; } /* actual padding-bottom will be set by JS */
-}
-
-/* small phones tweak */
-@media (max-width: 420px) {
-  .join-small { width: 95%; bottom: 10px; }
-}
   </style>
+
+  <!-- Open Graph / Twitter meta (lasciati come nel file originale) -->
+  <meta property="og:title" content="Pedalata di Natale 2025 🎄🚴">
+  <meta property="og:description" content="Partecipa alla Pedalata di Natale 2025! Un evento gratuito e divertente per tutta la famiglia tra le vie di Colli Aniene.">
+  <meta property="og:image" content="https://pintogiuseppe.github.io/pedalata-natale-2025/assets/img/anteprima.jpg">
+  <meta property="og:url" content="https://pintogiuseppe.github.io/pedalata-natale-2025/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pedalata di Natale 2025 🎄🚴‍">
+  <meta name="twitter:description" content="Scopri la Pedalata di Natale 2025 – evento culturale e sportivo aperto a tutti!">
+  <meta name="twitter:image" content="https://pintogiuseppe.github.io/pedalata-natale-2025/assets/img/anteprima.jpg">
+
+  <link rel="icon" type="image/png" href="https://pintogiuseppe.github.io/pedalata-natale-2025/assets/img/favicon.png">
+  <meta name="theme-color" content="#c60000">
 </head>
 <body>
-<!-- TOP BAR -->
-	<div class="top-bar">
-  <div class="top-bar-content">
-    <div class="organizers">
-      <span>Organizzatore</span>
-      <img src="assets\img\Logo_Salvaiciclisti.png" alt="Logo Organizzatore">      
-    </div>
-    <div class="patrocinio">
-      <span>Con il patrocinio di</span>
-      <img src="assets\img\RomaMunicipioIV.jpg" alt="Roma - Municipio IV">
+
+  <!-- Fascia istituzionale -->
+  <div class="top-bar">
+    <div class="top-bar-content">
+      <div class="organizers">
+        <!--span>Organizzatore</span-->
+        <img src="C:\Users\Giuseppe\Downloads\img\Logo_Salvaiciclisti.png" alt="Logo Organizzatore">      
+      </div>
+      <div class="patrocinio">
+        <span>Con il patrocinio di</span>
+        <img src="C:\Users\Giuseppe\Downloads\img\RomaMunicipioIV.jpg" alt="Roma - Municipio IV">
+      </div>
     </div>
   </div>
-</div>
+
 
   <!-- HERO -->
   <header class="hero-grid" role="banner" aria-label="Hero - Pedalata di Natale">
@@ -524,6 +197,7 @@ footer {
       </div>
 
       <div class="hero-right" role="region" aria-label="Informazioni rapide">
+
         <div class="pill-box" role="group" aria-label="Quando">
           <div class="pill-inner">
             <div class="pill-side left">
@@ -556,7 +230,7 @@ footer {
           </div>
         </div>
 
-        <!-- CTA: in desktop remains in-flow; on mobile CSS above forces it fixed -->
+        <!-- CTA: fixed on mobile via CSS, in-flow on desktop -->
         <div class="join-small" role="region" aria-label="Iscriviti">
           <div class="pretext">Unisciti a noi</div>
           <a class="cta-btn" href="https://forms.gle/VrYPRFbYx7stWcEV7" target="_blank" rel="noopener noreferrer">ISCRIVITI ORA!</a>
@@ -565,123 +239,112 @@ footer {
         <!-- countdown (kept in header flow) -->
         <div id="countdown" class="countdown" aria-live="polite" aria-atomic="true"></div>
 
-        <!-- sentinel left for possible future use -->
-        <div id="cta-sentinel" aria-hidden="true"></div>
+        <div id="cta-sentinel" aria-hidden="true" style="height:1px; width:100%; display:block;"></div>
       </div>
     </div>
   </header>
 
   <!-- MAIN -->
   <main>
-    <!--section class="section" id="percorso">
-      <h2>🗺️ Il percorso</h2>
-      <iframe src="https://www.google.com/maps/d/embed?mid=1zl4cNQYWQ9MmqYsIfxansXv0udSJtic&ehbc=2E312F&noprof=1" title="Mappa del percorso" loading="lazy"></iframe>
-    </section-->
-	
-	<section class="section" id="percorso">
-  <h2>🗺️ Il percorso</h2>
 
-  <div style="display:flex;justify-content:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
-    <button class="map-btn active" onclick="showMap('bici')">🚴‍♂️ Percorso in bici</button>
-    <button class="map-btn" onclick="showMap('piedi')">🚶‍♀️ Percorso a piedi</button>
-  </div>
+    <section class="section" id="percorso">
+      <h2>Il percorso</h2>
 
-  <div id="map-bici" class="map-frame active">
-    <iframe src="https://www.google.com/maps/d/embed?mid=1zl4cNQYWQ9MmqYsIfxansXv0udSJtic&ehbc=2E312F&noprof=1"
-      title="Percorso in bici" loading="lazy"></iframe>
-  </div>
+      <div class="map-controls">
+        <button class="map-btn active" data-map="bici" aria-pressed="true">Percorso in bici</button>
+        <button class="map-btn" data-map="piedi" aria-pressed="false">Percorso a piedi</button>
+      </div>
 
-  <div id="map-piedi" class="map-frame">
-    <iframe src="https://www.google.com/maps/d/embed?mid=1efQXgQJ8ePIgi-_4y-acaSNObOrNSRA&ehbc=2E312F&noprof=1"
-      title="Percorso a piedi" loading="lazy"></iframe>
-  </div>
-</section>
+      <div id="map-bici" class="map-frame active">
+        <iframe src="https://www.google.com/maps/d/embed?mid=1zl4cNQYWQ9MmqYsIfxansXv0udSJtic&ehbc=2E312F&noprof=1" title="Percorso in bici" loading="lazy"></iframe>
+      </div>
 
-    <section class="section" id="cosa">
-      <h2>🎁 Cosa ti aspetta</h2>
-      <div class="cards" aria-label="Cosa ti aspetta">
-        <div class="card"><div style="font-size:1.4rem">🎄</div><strong>Atmosfera natalizia</strong></div>
-        <div class="card"><div style="font-size:1.4rem">🎅</div><strong>Babbo Natale in bici</strong></div>
-        <div class="card"><div style="font-size:1.4rem">🍪🎶</div><strong>Dolcetti e musica</strong></div>
-        <div class="card"><div style="font-size:1.4rem">🎁</div><strong>Sorprese</strong></div>
+      <div id="map-piedi" class="map-frame">
+        <iframe src="https://www.google.com/maps/d/embed?mid=1efQXgQJ8ePIgi-_4y-acaSNObOrNSRA&ehbc=2E312F&noprof=1" title="Percorso a piedi" loading="lazy"></iframe>
       </div>
     </section>
 
-
-    <!--section class="section" id="Promotori">
-      <h2>📣 Promotori culturali</h2>
-      <div class="cards" aria-label="Promotori">
-        <div class="card2"><img src="logo1.png" alt="Logo Promotore"></div>
-        <div class="card2"></div>
-        <div class="card2"></div>
-        <div class="card2"></div>
+    <section class="section" id="cosa">
+      <h2>Cosa ti aspetta</h2>
+      <div class="cards" aria-label="Cosa ti aspetta">
+       <div class="card">Atmosfera natalizia</div>
+	   <div class="card">Attività</div>
+	   <div class="card">Dolcetti e musica</div>
+	   <div class="card">Sorprese</div>
       </div>
-  </section-->
 
-<section class="section" id="promotori">
-  <h2>📣 Promotori culturali</h2>
+<!-- La card di Babbo Natale diventa la principale -->
+<div class="card babbo-natale">
+  <strong>Consegna della letterina a Babbo Natale</strong>
+</div>
+    </section>
 
-<!-- GRIGLIA LOGHI PROMOTORI -->
+    <section class="section" id="promotori">
+  <h2>Promotori culturali e Sponsor</h2>
+ 
   <div class="logo-grid" aria-label="Loghi promotori">
-    <!-- ogni item può essere <a> (cliccabile) o semplicemente <div> -->
+    
     <div class="logo-item">
-      <img src="assets\img\Logo_bike4city.webp" alt="Promotore" loading="lazy">
+      <img src="C:\Users\Giuseppe\Downloads\img\Logo_bike4city.webp" alt="Promotore" loading="lazy">
 	  <div class="logo-caption">A.P.S. Bike4City - Roma</div>
     </div>
 	<div class="logo-item">
-      <img src="assets\img\Bts-Colli-Aniene.png" alt="Promotore" loading="lazy">
-      <div class="logo-caption">Bike to School - Colli Aniene</div> <!-- opzionale -->
+      <img src="C:\Users\Giuseppe\Downloads\img\Bts-Colli-Aniene.png" alt="Promotore" loading="lazy">
+      <div class="logo-caption">Bike to School - Colli Aniene</div> 
     </div>
 
     <div class="logo-item">
-      <img src="assets\img\Logo_Ass.webp" alt="Promotore" loading="lazy">
+      <img src="C:\Users\Giuseppe\Downloads\img\Logo_Ass.webp" alt="Promotore" loading="lazy">
 	  <div class="logo-caption">I nostri figli al centro della sQuola</div>
     </div>
     
-  </div> 
-</section>
-	
-	<section class="section" id="sponsor">
-      <h2>🤝 Sponsor</h2>
-		<p align="center"><em>Vuoi entrare a far parte dei nostri sponsor? <a href="https://forms.gle/DucGX46spXLdYcry5" target="_blank"><u>Scrivici!</u></a></em></p>
-      <div class="cards" aria-label="Sponsor">
-        <div class="card2"><img src="assets\img\inkpiu.jpeg" alt="Logo Sponsor" loading="lazy"></div>
-        <div class="card2"><img src="assets\img\tecnorete.svg" alt="Logo Sponsor" loading="lazy">
+	<!--div class="logo-item">
+      <img src="C:\Users\Giuseppe\Downloads\img\Logo_Sogester.png" alt="Promotore" loading="lazy">	  
+    </div-->
+    
+  </div>
+  <div class="cards" aria-label="Sponsor">
+        <div class="card2"><img src="C:\Users\Giuseppe\Downloads\img\inkpiu.jpeg" alt="Logo Sponsor" loading="lazy"></div>
+        <div class="card2"><img src="C:\Users\Giuseppe\Downloads\img\tecnorete.svg" alt="Logo Sponsor" loading="lazy">
 		<p>Affiliato<br>
 		<strong>Studio Immobiliare Colli Aniene Srl</strong><br>
 		Via Ettore Franceschini, 97 00155 Roma (RM)</p></div>
-        <div class="card2"><img src="assets\img\Logo_Sogester.png" alt="Logo Sponsor" loading="lazy"></div>
+        <div class="card2"><img src="C:\Users\Giuseppe\Downloads\img\Logo_Sogester.png" alt="Promotore" loading="lazy"></div>
         <div class="card2"></div>
       </div>
-    </section>
-	
-    <section class="section" id="cos'è">
+	  <p style="text-align:center"><em>Vuoi entrare a far parte dei nostri sponsor? <a href="https://forms.gle/DucGX46spXLdYcry5" target="_blank" rel="noopener noreferrer"><u>Scrivici!</u></a></em></p>
+</section>
+
+    <section class="section" id="cos-e">
       <div class="cards">
         <div class="card">Non perderti l’occasione di celebrare insieme l’arrivo delle feste in modo sano e divertente</div>
       </div>
     </section>
 
-    <section class="section" id="contatti">
-      <h2>📬 Contatti</h2>
-      <p style="text-align:center">Per maggiori informazioni o altre richieste <a href="https://forms.gle/DucGX46spXLdYcry5" target="_blank"><u>compila il form</u></a></p>
+    <section class="section contacts-section" id="contatti">
+      <h2>Contatti</h2>
+      <p style="text-align:center">Per maggiori informazioni o altre richieste <a href="https://forms.gle/DucGX46spXLdYcry5" target="_blank" rel="noopener noreferrer"><u>compila il form</u></a></p>
     </section>
+
   </main>
 
   <footer>
     <small>&copy; 2025 Pedalata di Natale — Evento organizzato da Salvaiciclisti con il Patrocinio di Roma - Municipio IV</small>
   </footer>
 
-  <!-- Countdown script (unchanged) -->
+  <!-- Countdown script (pulito e robusto) -->
   <script>
     (function(){
       const countdownEl = document.getElementById('countdown');
       const target = new Date("December 14, 2025 11:30:00").getTime();
+      let timerId = null;
+
       function render() {
         const now = Date.now();
         const diff = target - now;
         if (diff <= 0) {
           countdownEl.textContent = "🚴 È il grande giorno!";
-          clearInterval(timerId);
+          if (timerId) clearInterval(timerId);
           return;
         }
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -690,49 +353,108 @@ footer {
         const seconds = Math.floor((diff / 1000) % 60);
         countdownEl.innerHTML = `⏳ Mancano ${days} giorni, ${hours} ore, ${minutes} min e ${seconds} sec`;
       }
+
       render();
-      const timerId = setInterval(render, 1000);
+      timerId = setInterval(render, 1000);
     })();
   </script>
 
-  <!-- Minimal JS to set body padding on mobile so content is not covered by fixed CTA -->
+  <!-- JS: gestione padding body per CTA fissa e migliorata gestione mappe -->
   <script>
     (function(){
+      // padding per CTA fissa su mobile: JS calcola l'altezza reale della CTA e applica padding al body
       const joinSmall = document.querySelector('.join-small');
-      if (!joinSmall) return;
-
+      const contacts = document.querySelector('.contacts-section');
       const MOBILE_BREAKPOINT = 740;
 
       function applyPaddingIfMobile() {
+        if (!joinSmall) return;
         const vw = window.innerWidth || document.documentElement.clientWidth;
         if (vw <= MOBILE_BREAKPOINT) {
-          const h = joinSmall.getBoundingClientRect().height;
-          // add a small extra space so the CTA doesn't sit glued to content
-          document.body.style.paddingBottom = (h + 16) + 'px';
+          const h = Math.ceil(joinSmall.getBoundingClientRect().height);
+          document.body.style.paddingBottom = (h + 18) + 'px';
+          // anche alla sezione contatti aggiungiamo un buffer per sicurezza
+          if (contacts) contacts.style.paddingBottom = (h + 22) + 'px';
         } else {
           document.body.style.paddingBottom = '';
+          if (contacts) contacts.style.paddingBottom = '';
         }
       }
 
-      // run on load and resize/orientation change (debounced)
       window.addEventListener('load', applyPaddingIfMobile);
-      let t;
-      window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(applyPaddingIfMobile, 120); });
-      window.addEventListener('orientationchange', () => { setTimeout(applyPaddingIfMobile, 120); });
-
-      // initial
+      let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(applyPaddingIfMobile, 120); });
+      window.addEventListener('orientationchange', () => { setTimeout(applyPaddingIfMobile, 140); });
       applyPaddingIfMobile();
+
+      // Map buttons: event listeners basati su data-map
+      function showMapType(type) {
+        document.querySelectorAll('.map-btn').forEach(btn => {
+          const active = btn.dataset.map === type;
+          btn.classList.toggle('active', active);
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        document.querySelectorAll('.map-frame').forEach(frame => frame.classList.remove('active'));
+        const target = document.getElementById('map-' + type);
+        if (target) target.classList.add('active');
+      }
+
+      document.querySelectorAll('.map-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const type = btn.dataset.map;
+          if (type) showMapType(type);
+        });
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+        });
+      });
+
+      // inizializza stato aria per i bottoni
+      document.querySelectorAll('.map-btn').forEach(b => b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false'));
+
     })();
   </script>
-  
-  <!-- Percorso -->
+  <!-- JS: rende cliccabile tutta la .join-small -->
   <script>
-function showMap(type) {
-  document.querySelectorAll('.map-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.map-frame').forEach(frame => frame.classList.remove('active'));
-  document.querySelector(`.map-btn[onclick="showMap('${type}')"]`).classList.add('active');
-  document.getElementById(`map-${type}`).classList.add('active');
-}
+(function(){
+  // Seleziona la join-small e trova il link interno (se presente)
+  const join = document.querySelector('.join-small');
+  if (!join) return;
+
+  // preferisci usare l'href esistente nell'a.cta-btn
+  const innerLink = join.querySelector('a.cta-btn');
+  const href = innerLink ? innerLink.getAttribute('href') : null;
+  const target = innerLink ? innerLink.getAttribute('target') : '_self';
+  const rel = innerLink ? innerLink.getAttribute('rel') : '';
+
+  // setta ruoli e cursore per accessibilità/usabilità
+  join.setAttribute('role', 'link');
+  join.setAttribute('tabindex', '0');
+  join.style.cursor = 'pointer';
+
+  // click/tap handler: apri il link nello stesso modo del link interno
+  join.addEventListener('click', (e) => {
+    // evita doppio-navigare se l'utente ha cliccato già sul link interno nativamente
+    if (e.target.closest('a')) return;
+    if (!href) return;
+    if (target === '_blank') {
+      window.open(href, '_blank', 'noopener,noreferrer');
+    } else {
+      window.location.href = href;
+    }
+  });
+
+  // supporto tastiera (Enter / Space)
+  join.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      // trigger click handler
+      join.click();
+    }
+  });
+
+  // Se vuoi evitare che l'a interno gestisca il click due volte, assicurati che il comportamento
+  // dell' <a> sia quello nativo (non serve cancellare l'evento).
+})();
 </script>
 
 </body>
