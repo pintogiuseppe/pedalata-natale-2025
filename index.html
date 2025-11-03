@@ -369,59 +369,61 @@
   </script>
 
   <!-- JS: gestione padding body per CTA fissa e migliorata gestione mappe -->
-  <script>
-    (function(){
-      // padding per CTA fissa su mobile: JS calcola l'altezza reale della CTA e applica padding al body
-      const joinSmall = document.querySelector('.join-small');
-      const contacts = document.querySelector('.contacts-section');
-      const MOBILE_BREAKPOINT = 740;
+<script>
+  (function(){
+    // padding per CTA fissa su mobile: JS calcola l'altezza reale della CTA e applica padding al body
+    const joinSmall = document.querySelector('.join-small');
+    const footer = document.querySelector('footer'); // cambia contatti con footer
+    const MOBILE_BREAKPOINT = 740;
 
-      function applyPaddingIfMobile() {
-        if (!joinSmall) return;
-        const vw = window.innerWidth || document.documentElement.clientWidth;
-        if (vw <= MOBILE_BREAKPOINT) {
-          const h = Math.ceil(joinSmall.getBoundingClientRect().height);
-          document.body.style.paddingBottom = (h + 18) + 'px';
-          // anche alla sezione contatti aggiungiamo un buffer per sicurezza
-          if (contacts) contacts.style.paddingBottom = (h + 22) + 'px';
-        } else {
-          document.body.style.paddingBottom = '';
-          if (contacts) contacts.style.paddingBottom = '';
-        }
+    function applyPaddingIfMobile() {
+      if (!joinSmall) return;
+      const vw = window.innerWidth || document.documentElement.clientWidth;
+      if (vw <= MOBILE_BREAKPOINT) {
+        const h = Math.ceil(joinSmall.getBoundingClientRect().height);
+        document.body.style.paddingBottom = (h + 18) + 'px';
+        // anche al footer aggiungiamo un buffer per sicurezza
+        if (footer) footer.style.paddingBottom = (h + 22) + 'px';
+      } else {
+        document.body.style.paddingBottom = '';
+        if (footer) footer.style.paddingBottom = '';
       }
+    }
 
-      window.addEventListener('load', applyPaddingIfMobile);
-      let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(applyPaddingIfMobile, 120); });
-      window.addEventListener('orientationchange', () => { setTimeout(applyPaddingIfMobile, 140); });
-      applyPaddingIfMobile();
+    window.addEventListener('load', applyPaddingIfMobile);
+    let t; 
+    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(applyPaddingIfMobile, 120); });
+    window.addEventListener('orientationchange', () => { setTimeout(applyPaddingIfMobile, 140); });
+    applyPaddingIfMobile();
 
-      // Map buttons: event listeners basati su data-map
-      function showMapType(type) {
-        document.querySelectorAll('.map-btn').forEach(btn => {
-          const active = btn.dataset.map === type;
-          btn.classList.toggle('active', active);
-          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-        });
-        document.querySelectorAll('.map-frame').forEach(frame => frame.classList.remove('active'));
-        const target = document.getElementById('map-' + type);
-        if (target) target.classList.add('active');
-      }
-
+    // Map buttons: event listeners basati su data-map
+    function showMapType(type) {
       document.querySelectorAll('.map-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const type = btn.dataset.map;
-          if (type) showMapType(type);
-        });
-        btn.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-        });
+        const active = btn.dataset.map === type;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
+      document.querySelectorAll('.map-frame').forEach(frame => frame.classList.remove('active'));
+      const target = document.getElementById('map-' + type);
+      if (target) target.classList.add('active');
+    }
 
-      // inizializza stato aria per i bottoni
-      document.querySelectorAll('.map-btn').forEach(b => b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false'));
+    document.querySelectorAll('.map-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.map;
+        if (type) showMapType(type);
+      });
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+      });
+    });
 
-    })();
-  </script>
+    // inizializza stato aria per i bottoni
+    document.querySelectorAll('.map-btn').forEach(b => b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false'));
+
+  })();
+</script>
+
   <!-- JS: rende cliccabile tutta la .join-small -->
   <script>
 (function(){
