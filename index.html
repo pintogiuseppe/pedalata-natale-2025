@@ -12,71 +12,52 @@
   <link href="https://fonts.cdnfonts.com/css/gagalin" rel="stylesheet">  
 
   <style>
-    /* ======================================================== */
-    /* Variables & Reset - mobile-first                         */
-    /* ======================================================== */
     :root{
       --accent: #e53935;
       --accent2: #2e7d32;
       --bg: #fffdf8;
       --text: #222;
       --maxw: 1100px;
-      --logo-h: 96px;    /* default comfortable size */
+      --logo-h: 96px;
       --logo-gap: 1rem;
-      --cta-space-mobile: 100px; /* fallback space for fixed CTA on small screens */
+      --cta-space-mobile: 100px;
+      --card-min: 220px;
     }
-
     * { box-sizing: border-box; }
     html, body { height: 100%; margin:0; font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 1.4; }
     a { color: inherit; text-decoration: none; }
 
     /* Top bar */
-    .top-bar {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      padding: 0.4rem 1rem;
-    }
+    .top-bar { background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(0,0,0,0.06); padding: 0.4rem 1rem; }
     .top-bar-content { display:flex; justify-content:center; align-items:center; gap:1rem; max-width:var(--maxw); margin:0 auto; width:100%; flex-wrap:wrap; }
     .organizers, .patrocinio { display:flex; align-items:center; gap:0.6rem; font-size:1rem; color:#333; font-weight:600; }
-    .organizers span, .patrocinio span { display:inline-block; white-space:nowrap; margin-right:0.4rem; }
     .top-bar img { height:48px; width:auto; display:block; object-fit:contain; }
 
-    /* Hero (mobile-first) */
-    .hero-grid {
-      position:relative;
-      background: linear-gradient(rgba(0,0,0,0.56), rgba(0,0,0,0.46)), url("https://cdn.pixabay.com/photo/2022/09/09/14/55/santa-claus-7443132_1280.jpg") center/cover no-repeat;
-      color: #fff;
-      padding: 1.6rem 1rem 3.6rem;
-      overflow:hidden;
-    }
-    .hero-grid .inner { max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 1rem; align-items: center; position: relative; z-index: 1; justify-items: center; }
-    .hero-left { display:flex; flex-direction:column; align-items:center; gap:0.6rem; text-align:center; }
-    .hero-left h1 { font-family: "Berkshire Swash", cursive; font-size: clamp(2rem, 6vw, 2.8rem); text-align: center; margin:0; text-shadow:0 4px 12px rgba(0,0,0,0.45); line-height:1.05; }
-    .hero-left p.lead { margin-top:6px; font-size:1.2rem; color:#ffecec; text-align:center; font-style:italic; }
+    /* Hero */
+    .hero-grid { position:relative; background: linear-gradient(rgba(0,0,0,0.56), rgba(0,0,0,0.46)), url("https://cdn.pixabay.com/photo/2022/09/09/14/55/santa-claus-7443132_1280.jpg") center/cover no-repeat; color:#fff; padding:1.6rem 1rem 3.6rem; overflow:hidden; }
+    .hero-grid .inner { max-width: var(--maxw); margin:0 auto; display:grid; grid-template-columns:1fr; gap:1rem; align-items:center; z-index:1; justify-items:center; }
+    .hero-left h1 { font-family:"Berkshire Swash", cursive; font-size: clamp(2rem, 6vw, 2.8rem); margin:0; text-shadow:0 4px 12px rgba(0,0,0,0.45); line-height:1.05; text-align:center; }
+    .hero-left p.lead { margin-top:6px; font-size:1.02rem; color:#ffecec; text-align:center; font-style:italic; }
 
-    .hero-right { width:100%; display:flex; flex-direction:column; gap:0.9rem; align-items:center; justify-content:center; }
-
-    /* Pill box */
-    .pill-box { position:relative; background: rgba(255,255,255,0.92); color:#222; border-radius:12px; padding:0.85rem; box-shadow:0 8px 22px rgba(0,0,0,0.10); min-height:100px; display:flex; align-items:center; justify-content:center; margin: 14px; width: calc(100% - 28px); max-width:520px; }
+	.pill-box { position:relative; background: rgba(255,255,255,0.92); color:#222; border-radius:12px; padding:0.85rem; box-shadow:0 8px 22px rgba(0,0,0,0.10); min-height:100px; display:flex; align-items:center; justify-content:center; margin: 14px; width: calc(100% - 28px); max-width:520px; }
     .pill-inner { display:grid; grid-template-columns:1fr 8px 1fr; gap:0.6rem; align-items:center; width:100%; padding:0 0.5rem; }
     .divider { width:2px; height:70%; background: rgba(0,0,0,0.06); justify-self:center; border-radius:2px; }
     .pill-side { display:flex; flex-direction:column; gap:4px; text-align:center; padding:5px; }
     .pill-side .label { font-family: "Permanent Marker", cursive; font-weight:700; color:var(--accent); font-size:1.2rem; text-shadow:1px 1px 0 white; }
     .pill-side .value { font-family: 'Gagalin', sans-serif; font-size:1.2rem; color:#333; }
 
-    /* CTA - mobile-first (fixed on mobile via media query) */
+    /* CTA */
     .join-small { position: relative; margin: 0 auto; background: var(--accent); color: #fff; padding: 0.95rem; border-radius: 10px; border: 5px solid rgba(255,255,255,0.9); text-align: center; font-weight:700; box-shadow: 0 8px 22px rgba(229,57,53,0.18); width: calc(100% - 40px); max-width:520px; transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease; box-sizing: border-box; }
     .join-small .pretext { font-size:clamp(1.4rem, 5vw, 1.8rem); font-family: "Permanent Marker", cursive; font-weight:500; margin-bottom:0.5rem; }
     .join-small .cta-btn { display:inline-block; background:var(--accent); color:#fff; text-shadow:2px 2px 3px rgba(0,0,0,0.6); padding:0.6rem 1rem; border-radius:8px; font-family: "Permanent Marker", cursive; font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight:800; text-decoration:none; }
 
     /* Countdown */
-    .countdown { text-shadow:2px 2px 3px rgba(0,0,0,0.6); color:#fff; font-weight:700; margin-top:0.2rem; font-size:1.05rem; text-align:center; font-style:italic; }
+    .countdown { text-shadow:2px 2px 3px rgba(0,0,0,0.6); color:#fff; font-weight:700; margin-top:1.2rem; font-size:1.05rem; text-align:center; font-style:italic; }
 
     /* Sections */
     .section { max-width: var(--maxw); margin: 3.2rem auto; padding: 0 1rem; }
     .section h2 { font-family: "Berkshire Swash", cursive; color:var(--accent); text-align:center; font-size:1.8rem; margin:1rem 0; }
-    .section a { text-decoration: underline; color: #000; }
+	.section > .map-controls { max-width: var(--maxw); margin: 0 auto 0.8rem; display:flex; justify-content:center; gap:1rem; width:100%; box-sizing:border-box;}
 
     /* Map controls */
     .map-controls { display:flex; justify-content:center; gap:1rem; margin-bottom:1rem; flex-wrap:wrap; }
@@ -87,72 +68,257 @@
     .map-frame { display:none; }
     .map-frame.active { display:block; }
 
-    iframe { width:100%; height:320px; border:none; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+    iframe { width:100%; height:400px; border:none; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
 
-    /* Cards */
-    .mappe-container { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem; margin-top:1.5rem; }
-    .mappa-card { background: rgba(255,255,255,0.92); border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.12); padding:1rem; text-align:center; transition: transform 0.18s ease, box-shadow 0.18s ease; }
-    .mappa-card:hover { transform: translateY(-4px); box-shadow:0 6px 18px rgba(0,0,0,0.16); }
-    .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem; margin-top:1rem; }
-	.card { background: #006243; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.18); padding:1rem; text-align:center; color:#fff; font-family: 'Gagalin', sans-serif; font-size:1.05rem; text-shadow:2px 2px 1px rgba(0,0,0,0.6); min-height:100px; display:flex; align-items:center; justify-content:center; }
+    /* Timeline */
+    .itinerary { margin-top: 1rem; display: grid; gap: 1rem; }
+    .timeline { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.6rem; }
+    .timeline li { display:flex; gap:.75rem; align-items:flex-start; background: rgba(255,255,255,0.95); padding:.7rem; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .timeline .time { font-weight:800; color:var(--accent); min-width:72px; text-align:left; }
+    .timeline .actions { margin-left:auto; display:flex; gap:.45rem; align-items:center; }
+	
+	/* ---------- Layout per la sezione percorso: mappa a sinistra, itinerario a destra ---------- */
+	.percorso-grid { display: grid; gap: 1rem; align-items: start;  /* default mobile: 1 col (sovrascriveremo su desktop) */ grid-template-columns: 1fr;}
+	/* contenitori interni */
+	.percorso-map { width: 100%; min-height: 420px; /* aumentata su desktop/tablet, regola se vuoi */ display: flex; flex-direction: column; gap: 0.8rem; }
+	/* rendi iframe responsive: prende la larghezza del suo contenitore */
+	.percorso-map iframe { width: 100%; height: 100%; min-height: 380px; /* fallback per schermi più piccoli */ border-radius: 8px;	}
+	.percorso-itinerary { width: 100%; display: block; }
+	.percorso-itinerary .itinerary { overflow: auto; /* valore max-height impostato via JS per corrispondere all'altezza della mappa */ max-height: none; padding-right: 6px; /* spazio per la scrollbar */}
+
+
+    /* Programma come card espandibili */
+    .prog-grid { display: grid; grid-template-columns: 1fr; gap: 0.9rem; margin-top: 0.6rem; }
+    .prog-card { background: rgba(255,255,255,0.92); color:#222; /* background: linear-gradient(180deg, rgba(46,125,50,0.98), rgba(34,100,40,0.98)); color: #fff; */ padding: 0.9rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); font-weight:700; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; }
+    .prog-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.14); }
+    .prog-card .label { font-size:1.05rem; }
+    .prog-card .chev { opacity:0.95; font-size:1.2rem; }
+    /* cleaned prog-panel: inline expansion, limited to section width */
+    .prog-panel { display:none; background: rgba(255,255,255,0.96); border-radius: 10px; padding: 0.65rem; box-shadow: 0 4px 12px rgba(0,0,0,0.06); margin-top: 0.6rem; width: 100%; max-width: var(--maxw); }
+    .prog-panel.open { display:block; }
+
+    /* prog-photos: mobile-first */
+    .prog-photos { display: grid; grid-template-columns: 1fr; gap: 0.6rem; margin-top: 0.5rem; }
+    /* .prog-photo { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); min-height: 110px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; text-align:center; padding: 0.45rem; position:relative; }
+    .prog-photo img { width:100%; height:80px; object-fit:cover; border-radius:6px; display:block; margin-bottom:0.4rem; } */
+	.prog-photo { position: relative; overflow: hidden; border-radius: 10px; /* background: #f6f6f6; */ /* placeholder neutro se l'immagine impiega a caricare */ }
+	.prog-photo img { width: 100%; height: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; border-radius: 10px; }
+	.prog-photo .img-wrap { position: relative; width: 100%; padding-top: 56.25%; overflow: hidden;  border-radius: 10px; }
+	.prog-photo .img-wrap img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+    /* .prog-photo .title { font-weight:700; font-size:0.95rem; color:var(--text); } */
+	.prog-photo .title { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #fff; /* var(--accent); */ font-size: clamp(1.2rem, 3vw, 1.5rem) !important;
+	font-weight: 700; line-height: 1.2; padding: 0.3rem 0.3rem; z-index: 2; /* text-shadow: 0 2px 6px rgba(0,0,0,0.2); */}
+	/* leggero overlay per rendere il testo leggibile anche su immagini chiare */
+	.prog-photo::before { content: "";  position: absolute; inset: 0; background: rgba(0,0,0,0.45); z-index: 1; transition: background 0.3s ease; }
+	/* .prog-photo:hover::before { background: rgba(0,0,0,0.35);} */
+
+    /* Cards / Sponsors */
+    .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(var(--card-min), 1fr)); gap:1rem; margin-top:1rem; justify-content:center; }
+    .card { background: linear-gradient(180deg, rgba(46,125,50,0.98), rgba(34,100,40,0.98)); /* background: #006243; */ border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.18); padding:1rem; text-align:center; color:#fff; font-family: 'Gagalin', sans-serif; font-size:1.05rem; text-shadow:2px 2px 1px rgba(0,0,0,0.6); min-height:100px; display:flex; align-items:center; justify-content:center; }
     .card2 { background: rgba(255,255,255,0.92); border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,0.12); padding:1rem; text-align:center; color:var(--accent); font-size:1rem; font-style:italic; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100px; }
     .card2 img { max-width:100%; max-height:60px; object-fit:contain; display:block; margin:0 auto 0.5rem; }
-    .card2 p { font-size:0.75rem; color:#000; text-align:left; margin:0; line-height:1.3; }
-    .card2:empty::before { content: "In arrivo"; color:#999; font-style:italic; font-size:1rem; }
-	.card.babbo-natale { z-index:0; position: relative; background: url('https://cdn.pixabay.com/photo/2021/11/17/16/31/christmas-6804045_1280.jpg') center/cover no-repeat; color: #fff; font-size: 1.6rem;
-	padding: 1.5rem; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; display: flex; justify-content: center;
-	align-items: center; height: 280px; /* Altezza aumentata solo per la card di Babbo Natale */ margin: 20px auto; /* Centra la card */}
-    .card.babbo-natale::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); /* Overlay scuro */ border-radius: 15px;}
-   .card.babbo-natale strong { position: relative; font-family: 'Permanent Marker', cursive; font-size: 1.8rem; z-index: 1;}
+	.card2 p { font-size:0.75rem; color:#000; text-align:left; margin:0; line-height:1.3; }
 
+    / .card.babbo-natale { z-index:0; position: relative; background: url('https://cdn.pixabay.com/photo/2021/11/17/16/31/christmas-6804045_1280.jpg') center/cover no-repeat; color: #fff; font-size: 1.6rem; padding: 1.5rem; border-radius: 15px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); text-align: center; display: flex; justify-content: center; align-items: center; height: 280px; margin: 20px auto; }
+    .card.babbo-natale::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.4); border-radius: 15px;}
+    .card.babbo-natale strong { position: relative; font-family: 'Permanent Marker', cursive; font-size: 1.8rem; z-index: 1; }
 
     /* Logo grid */
-    .logo-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:var(--logo-gap); align-items:center; justify-items:center; margin-top:1rem; padding:0.25rem; }
-    .logo-item { width:100%; max-width:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0.65rem; background: rgba(255,255,255,0.92); border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.06); min-height:120px; }
-    .logo-item img { max-height:var(--logo-h); max-width:100%; width:auto; height:auto; object-fit:contain; display:block; margin:0 auto; }
-    .logo-caption { margin-top:0.45rem; font-size:0.85rem; color:#333; text-align:center; line-height:1.2; }
+    /* .logo-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:var(--logo-gap); align-items:center; justify-items:center; justify-content:center; margin-top:1rem; padding:0.25rem; }
+    .logo-item { width:100%; max-width:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:0.65rem; background: rgba(255,255,255,0.92); border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.06); min-height:120px; }
+    .logo-item img { max-height:var(--logo-h); max-width:100%; width:auto; height:auto; object-fit:contain; display:block; margin:0 auto; }*/ 
+	
+	.logo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+}
+
+.logo-item {
+  flex: 0 1 160px; /* ogni logo ha larghezza base flessibile */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background: #fff; /* opzionale: utile se il fondo pagina non è bianco puro */
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.2s ease;
+}
+
+.logo-item:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.logo-item img {
+  max-height: 100px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+.logo-item.has-text {
+  flex-direction: column; /* logo sopra, testo sotto */
+  text-align: left;
+}
+
+.logo-item.has-text p {
+  font-size: clamp(0.65rem, 2.2vw, 0.85rem);
+  color: #000;
+  margin: 0.4rem 0 0;
+  line-height: 1.3;
+}
 
     footer { background:#fafafa; text-align:center; padding:1.2rem; color:#666; font-size:0.9rem; margin-top:2.2rem; }
 
-    /* ======================================================== */
-    /* Media queries - Mobile-first, desktop enhancements         */
-    /* ======================================================== */
+    /* Responsive tweaks */
     @media (max-width: 480px) {
       .top-bar img { height:36px; }
-      :root { --logo-h: 64px; }
+      :root { --logo-h: 64px; --card-min: 160px; }
       .hero-left h1 { font-size: clamp(2rem, 8vw, 2.4rem); }
       .join-small { width: calc(100% - 24px); box-sizing:border-box; z-index:1500;}
       .join-small .cta-btn { font-size: clamp(1.2rem, 5vw, 1.6rem); }
       .join-small { position: fixed; left: 0; right: 0; bottom: 10px; margin:0 auto; z-index:1400; box-shadow: 0 18px 40px rgba(0,0,0,0.25); transition:none; }
-      body { padding-bottom: var(--cta-space-mobile); } /* CSS fallback; JS will set precise padding */
-      .card { font-size: 1rem; }
-    }
+	  /* .logo-grid { grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));} */
+	    .logo-item { flex: 0 1 120px; padding: 0.3rem; }
+  .logo-item img { max-height: 48px; }
+  .logo-grid { justify-content: center; gap: 0.6rem; }
+	  .prog-photo .title {
+    font-size: 1.1rem;
+    padding: 0.4rem 0.6rem;
+	.percorso-grid {
+    grid-template-columns: 1fr !important;  /* 1 colonna */
+    grid-auto-flow: row;                    /* scorre in verticale */
+    gap: 0.75rem;
+  }
 
-    @media (min-width: 481px) and (max-width: 740px) {
+  /* assicura l'ordine: mappa prima, itinerario dopo */
+  .percorso-map  { order: 0; width: 100%; }
+  .percorso-itinerary { order: 1; width: 100%; }
+
+  /* mappa comoda e itinerary in flusso normale (no max-height imposto) */
+  .percorso-map { min-height: 340px; }
+  .percorso-map iframe { min-height: 300px; height: auto; }
+
+  .percorso-itinerary .itinerary {
+    max-height: none !important;  /* disabilita max-height su mobile */
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  /* eventuale centratura dei bottoni già presente */
+  .section > .map-controls { margin-bottom: 0.6rem; }
+  }
+  .percorso-grid { grid-template-columns: 1fr; }
+  .percorso-map { min-height: 320px; }
+  .percorso-map iframe { min-height: 300px; }
+  .percorso-itinerary .itinerary { max-height: none; } /* su mobile: normale flusso, lascia scorrere la pagina */
+      body { padding-bottom: var(--cta-space-mobile); }
+    }
+	@media (min-width: 481px) and (max-width: 740px) {
       :root { --logo-h: 74px; }
       .hero-left h1 { font-size: clamp(2.2rem, 6.5vw, 3rem); }
-      .join-small { position: fixed; left: 0; right: 0; bottom: 12px; width: calc(100% - 24px); max-width:520px; margin:0 auto; z-index:1500; box-shadow:0 18px 40px rgba(0,0,0,0.22); transition:none; }
+      .join-small { width: calc(100% - 24px); box-sizing:border-box; z-index:1500; }
+	  .logo-grid { grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); }
+	  .logo-item { width:calc(100% - 24px); }
       body { padding-bottom: var(--cta-space-mobile); }
-	  .card.babbo-natale {  height: 240px; /* Altezza ridotta su mobile per adattarsi meglio */ }
-      .card {font-size: 1.2rem; /* Rende il testo un po' più piccolo su mobile */ }
+.prog-photo .title {
+    font-size: 1.1rem;
+    padding: 0.4rem 0.6rem;
+  }
+.percorso-grid {
+    grid-template-columns: 1fr !important;
+    grid-auto-flow: row;
+    gap: 0.75rem;
+  }
+  .percorso-map { order: 0; width: 100%; min-height: 340px; }
+  .percorso-map iframe { min-height: 300px; height: auto; }
+  .percorso-itinerary { order: 1; width: 100%; }
+  .percorso-itinerary .itinerary {
+    max-height: none !important;
+    overflow: visible;
+    padding-right: 0;
+  }
     }
-
+	
     @media (min-width: 741px) {
-      /* Desktop: spacious, impactful */
-      :root { --logo-h: 110px; }
+      :root { --logo-h: 110px; --card-min: 220px; }
       .hero-grid { padding: 3rem 1rem 4rem; }
       .hero-grid .inner { grid-template-columns: 1fr 420px; gap:2.2rem; justify-items:stretch; }
-      .hero-left { align-items:flex-start; text-align:left; }
-      .hero-left h1 { font-size: clamp(3rem, 6vw, 5rem); line-height:1.02; }
-      .pill-box { padding: 1.4rem; min-height:130px; border-radius:16px; }
-      .card, .card2 { /* min-height:140px; */ padding:1.4rem; font-size:1.25rem; }
-      .join-small { width: 100%; max-width: 420px; margin: 1rem auto 0; position: relative; }
-      .join-small .cta-btn { font-size: clamp(1.8rem, 3vw, 2.4rem); padding: 0.8rem 1.4rem; }
-      .top-bar img { height:60px; }
-      body { padding-bottom: 0; } /* no fixed CTA on desktop */
+      .prog-grid { grid-template-columns: repeat(3, 1fr); gap:1rem; }
+      .prog-panel { grid-column: 1 / -1; margin-top: 0.6rem; }
+      .prog-photos { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+	  .prog-photo { min-height: 140px; padding: 0.65rem; }
+	  .prog-photo img { height: 120px; margin-bottom:0.6rem; object-fit:cover; }
+	  .prog-photo .title { font-size:1rem; }
+	  .join-small { width: 100%; max-width: 420px; margin: 1rem auto 0; position: relative; }
+	  .prog-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: auto; gap: 1rem; align-items: start; }
+	  /* .prog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; align-items: start; } */
+      .prog-card { grid-row: 1; z-index: 3; }  
+      .prog-panel { grid-row: 2; grid-column: 1 / -1; width: 100%; max-width: var(--maxw); margin: 0 auto 1rem; box-sizing: border-box; z-index: 2; }
+	  .prog-grid > div { display: contents; }
+	  .percorso-grid {
+    grid-template-columns: 1fr 420px; /* mappa flessibile, itinerario fisso a 420px */
+    align-items: start;
+  }
+
+    /* assicuriamo che i bottoni map-controls restino visualmente nella mappa */
+  .percorso-grid { grid-template-columns: 1fr 420px; align-items:start; gap:1rem; }
+  .percorso-map { min-height: 480px; }        /* mappa più alta su desktop */
+  .percorso-map iframe { min-height: 460px; }
+      body { padding-bottom: 0; }
     }
 
-  </style>
+
+  
+/* --- Responsive two-column card layout up to 740px --- */
+@media (max-width: 740px) {
+  .prog-photos { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+  .prog-photo {
+    min-height: 120px;
+    padding: 0; /* keep image flush */
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+  .prog-photo .img-wrap { padding-top: 62%; } /* slightly taller aspect for small cards */
+  /* Fallback when there's no image: use the green gradient and center content */
+  .prog-photo.no-img {
+    background: linear-gradient(180deg, rgba(46,125,50,0.98), rgba(34,100,40,0.98));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 120px;
+  }
+  .prog-photo.no-img .title {
+    position: static;
+    transform: none;
+    margin: 0;
+    padding: 0.6rem 0.8rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  /* Make sure titles over images are centered and readable */
+  .prog-photo .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0;
+    padding: 0 0.5rem;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.35);
+    color: #fff;
+    z-index: 2;
+  }
+}
+</style>
 
   <!-- Open Graph / Twitter meta (lasciati come nel file originale) -->
   <meta property="og:title" content="Pedalata di Natale 2025 🎄🚴">
@@ -172,11 +338,10 @@
 </head>
 <body>
 
-  <!-- Fascia istituzionale -->
+  <!-- Top bar -->
   <div class="top-bar">
     <div class="top-bar-content">
       <div class="organizers">
-        <!--span>Organizzatore</span-->
         <img src="assets\img\Logo_Salvaiciclisti.png" alt="Logo Organizzatore">      
       </div>
       <div class="patrocinio">
@@ -186,27 +351,23 @@
     </div>
   </div>
 
-
   <!-- HERO -->
   <header class="hero-grid" role="banner" aria-label="Hero - Pedalata di Natale">
     <div class="inner">
-
       <div class="hero-left">
         <h1>Pedalata di Natale 2025</h1>
-        <p class="lead">Un’allegra pedalata/passeggiata nella magia del Natale aperta a tutti: bambini, adulti, famiglie e amici!</p>
+        <p class="lead">Un allegro appuntamento nella magia del Natale.<br>
+		Iniziativa aperta a tutti: bambini, adulti, famiglie e amici!</p>
       </div>
 
       <div class="hero-right" role="region" aria-label="Informazioni rapide">
-
         <div class="pill-box" role="group" aria-label="Quando">
           <div class="pill-inner">
             <div class="pill-side left">
               <div class="label">Data</div>
               <div class="value">domenica 14 Dicembre</div>
             </div>
-
             <div class="divider" aria-hidden="true"></div>
-
             <div class="pill-side right">
               <div class="label">Ritrovo </div>
               <div class="value">ore 10:00 Parco Tozzetti</div>
@@ -218,27 +379,22 @@
           <div class="pill-inner">
             <div class="pill-side left">
               <div class="label">Partenza</div>
-              <div class="value">ore 11:30 Parco Tozzetti</div>
+              <div class="value">ore 11:00 Parco Tozzetti</div>
             </div>
-
             <div class="divider" aria-hidden="true"></div>
-
             <div class="pill-side right">
               <div class="label">Arrivo</div>
-              <div class="value">ore 12:30 Parco Tiburtino III</div>
+              <div class="value">ore 12:15 Parco Tiburtino III</div>
             </div>
           </div>
         </div>
 
-        <!-- CTA: fixed on mobile via CSS, in-flow on desktop -->
         <div class="join-small" role="region" aria-label="Iscriviti">
           <div class="pretext">Unisciti a noi</div>
           <a class="cta-btn" href="https://forms.gle/VrYPRFbYx7stWcEV7" target="_blank" rel="noopener noreferrer">ISCRIVITI ORA!</a>
         </div>
 
-        <!-- countdown (kept in header flow) -->
         <div id="countdown" class="countdown" aria-live="polite" aria-atomic="true"></div>
-
         <div id="cta-sentinel" aria-hidden="true" style="height:1px; width:100%; display:block;"></div>
       </div>
     </div>
@@ -247,102 +403,191 @@
   <!-- MAIN -->
   <main>
 
-    <section class="section" id="percorso">
-      <h2>Il percorso</h2>
+    <!-- PROGRAMMA subito sotto l'hero -->
+    <section class="section" id="programma">
+      <h2>Programma della giornata</h2>
 
-      <div class="map-controls">
-        <button class="map-btn active" data-map="bici" aria-pressed="true">Percorso in bici</button>
-        <button class="map-btn" data-map="piedi" aria-pressed="false">Percorso a piedi</button>
-      </div>
+      <div class="prog-grid" aria-label="Programma esteso">
+        <!-- Card 1: Attività iniziali -->
+        <div>
+          <div class="prog-card" data-target="panel-1" role="button" tabindex="0" aria-expanded="false">
+            <div class="label">Attività iniziali - ore 10:00</div>
+            <div class="chev">▾</div>
+          </div>
+          <div id="panel-1" class="prog-panel" aria-hidden="true">
+            <!--p><strong>Ore 10 — Attività alla partenza</strong></p-->
+            <div class="prog-photos">
+              <div class="prog-photo"><img src="assets\img\lollydance.jpg" alt="Lolly Dance"><div class="title">Spettacolo di ballo</div></div>
+              <div class="prog-photo"><img src="assets\img\collauda_bici.jpg" alt="Collauda la bici"><div class="title">Controllo bici e scarpe</div></div>
+              <div class="prog-photo"><img src="assets\img\come_pedalare.jpg" alt="Come si pedala"><div class="title">Come si pedala / cammina</div></div>
+			  <div class="prog-photo"><img src="assets\img\palline_natale_consegna.jpg" alt="Palline di Natale"><div class="title">Consegna palline di Natale</div></div>
+			</div>
+          </div>
+        </div>
 
-      <div id="map-bici" class="map-frame active">
-        <iframe src="https://www.google.com/maps/d/embed?mid=1zl4cNQYWQ9MmqYsIfxansXv0udSJtic&ehbc=2E312F&noprof=1" title="Percorso in bici" loading="lazy"></iframe>
-      </div>
+        <!-- Card 2: La pedalata / La sfilata (scroll to percorso) -->
+        <div>
+          <div class="prog-card" data-target="percorso" role="button" tabindex="0" aria-expanded="false">
+            <div class="label">La pedalata / La sfilata - ore 11:00</div>
+            <div class="chev">⤓</div>
+          </div>
+        </div>
 
-      <div id="map-piedi" class="map-frame">
-        <iframe src="https://www.google.com/maps/d/embed?mid=1efQXgQJ8ePIgi-_4y-acaSNObOrNSRA&ehbc=2E312F&noprof=1" title="Percorso a piedi" loading="lazy"></iframe>
+        <!-- Card 3: Attività finali -->
+        <div>
+          <div class="prog-card" data-target="panel-3" role="button" tabindex="0" aria-expanded="false">
+            <div class="label">Attività finali - ore 12:30</div>
+            <div class="chev">▾</div>
+          </div>
+          <div id="panel-3" class="prog-panel" aria-hidden="true">
+            <!--p><strong>Dalle 12:15 — Al Parco Tiburtino III</strong></p-->
+			  <div class="prog-photos">
+              <div class="prog-photo"><img src="assets\img\musicaniene.png" alt="MusicAniene"><div class="title">Mini concerto</div></div>
+              <div class="prog-photo"><img src="assets\img\Blu-dream-academy-asd.jpg" alt="Blu Dream"><div class="title">Spettacolo di ballo</div></div>
+              <div class="prog-photo"><img src="https://cdn.pixabay.com/photo/2021/11/17/16/31/christmas-6804045_1280.jpg" alt="Letterine"><div class="title">Consegna letterine a Babbo Natale</div></div>
+			  <div class="prog-photo"><img src="assets\img\palline_natale.jpg" alt="Palline di Natale"><div class="title">Decorazione palline di Natale</div></div>
+			  </div>
+            </div>
+          </div>
+        </div>
       </div>
+	
     </section>
 
-    <section class="section" id="cosa">
-      <h2>Cosa ti aspetta</h2>
-      <div class="cards" aria-label="Cosa ti aspetta">
-       <div class="card">Atmosfera natalizia</div>
-	   <div class="card">Attività</div>
-	   <div class="card">Dolcetti e musica</div>
-	   <div class="card">Sorprese</div>
-      </div>
+    <!-- PERCORSO (mappe + timeline) -->
+<section class="section" id="percorso">
+  <h2>Il percorso</h2>
 
-<!-- La card di Babbo Natale diventa la principale -->
-<div class="card babbo-natale">
-  <strong>Consegna della letterina a Babbo Natale</strong>
-</div>
-    </section>
-
-    <section class="section" id="promotori">
-  <h2>Promotori culturali e Sponsor</h2>
- 
-  <div class="logo-grid" aria-label="Loghi promotori">
-    
-    <div class="logo-item">
-      <img src="assets\img\Amici-parco-Tozzetti.jpeg" alt="Promotore" loading="lazy">
-	  <!--div class="logo-caption">A.P.S. Bike4City - Roma</div-->
-    </div>
-	  
-	<div class="logo-item">
-      <img src="assets\img\Logo_bike4city.webp" alt="Promotore" loading="lazy">
-	  <!--div class="logo-caption">A.P.S. Bike4City - Roma</div-->
-    </div>
-	  
-	<div class="logo-item">
-      <img src="assets\img\Bts-Colli-Aniene.png" alt="Promotore" loading="lazy">
-      <!--div class="logo-caption">Bike to School - Colli Aniene</div--> 
-    </div>
-	  
-	<div class="logo-item">
-      <img src="assets\img\Cdq-colli-anine.jpeg" alt="Promotore" loading="lazy">	  
-    </div>	 
-
-    <div class="logo-item">
-      <img src="assets\img\Logo_Ass.webp" alt="Promotore" loading="lazy">
-	  <!--div class="logo-caption">I nostri figli al centro della sQuola</div-->
-    </div>
-	  
-	<div class="logo-item">
-      <img src="assets\img\Cdq-Rebibbia.jpeg" alt="Promotore" loading="lazy">	  
-    </div>	 
-	  
-	<div class="logo-item">
-      <img src="assets\img\Cdq-Torraccia.jpeg" alt="Promotore" loading="lazy">	  
-    </div>	 
-	  
-    <div class="logo-item">
-      <img src="assets\img\Rete-civica.jpeg" alt="Promotore" loading="lazy">	  
-    </div>
-
-	<div class="logo-item">
-      <img src="assets\img\tipi-attivi.jpeg" alt="Promotore" loading="lazy">	  
-    </div>
-    
+  <!-- map-controls spostati qui: centrati rispetto alla section -->
+  <div class="map-controls" role="tablist" aria-label="Seleziona percorso">
+    <button class="map-btn active" data-map="bici" aria-pressed="true">Percorso in bici</button>
+    <button class="map-btn" data-map="piedi" aria-pressed="false">Percorso a piedi</button>
   </div>
-  <div class="cards" aria-label="Sponsor">
-        <div class="card2"><img src="assets\img\inkpiu.jpeg" alt="Logo Sponsor" loading="lazy"></div>
-        <div class="card2"><img src="assets\img\tecnorete.svg" alt="Logo Sponsor" loading="lazy">
-		<p>Affiliato<br>
-		<strong>Studio Immobiliare Colli Aniene Srl</strong><br>
-		Via Ettore Franceschini, 97 00155 Roma (RM)</p></div>
-        <div class="card2"><img src="assets\img\Logo_Sogester.png" alt="Promotore" loading="lazy"></div>
-        <!--div class="card2"></div-->
+
+  <div class="percorso-grid">
+
+    <!-- COLONNA SINISTRA: MAPPA -->
+    <div class="percorso-map">
+      <div id="map-bici" class="map-frame active" aria-hidden="false">
+        <iframe src="https://www.google.com/maps/d/embed?mid=1zl4cNQYWQ9MmqYsIfxansXv0udSJtic&ehbc=2E312F&noprof=1"
+                title="Percorso in bici" loading="lazy"></iframe>
       </div>
-	  <p style="text-align:center"><em>Vuoi entrare a far parte dei nostri sponsor? <a href="https://forms.gle/DucGX46spXLdYcry5" target="_blank" rel="noopener noreferrer"><u>Scrivici!</u></a></em></p>
+
+      <!-- NOTA: rimosso lo style inline "display:none" qui -->
+      <div id="map-piedi" class="map-frame" aria-hidden="true">
+        <iframe src="https://www.google.com/maps/d/embed?mid=1efQXgQJ8ePIgi-_4y-acaSNObOrNSRA&ehbc=2E312F&noprof=1"
+                title="Percorso a piedi" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- COLONNA DESTRA: ITINERARIO / TIMELINE -->
+    <div class="percorso-itinerary" aria-label="Itinerario e soste">
+      <div class="itinerary">
+        <!-- (qui vanno i tuoi <ol class="timeline ..."> esistenti, senza cambiare) -->
+        <!-- ... copia qui le timeline bici/piedi già presenti ... -->
+		<ol class="timeline timeline-bici" data-type="bici">
+        
+          <li>
+            <div class="time">11:00</div>
+            <div><div class="place">Partenza — Parco Tozzetti</div><div class="desc">Partenza</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="bici">Vedi sulla mappa</button></div-->
+          </li>
+          <li>
+            <div class="time">11:15</div>
+            <div><div class="place">I.C. Tullio De Mauro - Plesso Italo Calvino</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="bici">Vedi sulla mappa</button></div-->
+          </li>
+          <li>
+            <div class="time">11:30</div>
+            <div><div class="place">Scuola secondaria di primo grado – Scalarini</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="bici">Vedi sulla mappa</button></div-->
+          </li>
+          <li>
+            <div class="time">11:45</div>
+            <div><div class="place">Scuola dell'Infanzia Sommovigo</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="bici">Vedi sulla mappa</button></div-->
+          </li>
+          <li>
+            <div class="time">12:00</div>
+            <div class="place">I.C. Angelica Balabanoff</div>
+            <!--div class="actions"><button class="map-btn" data-map-action="bici">Vedi sulla mappa</button></div-->
+          </li>
+          <li>
+            <div class="time">12:15</div>
+            <div><div class="place">I.C. Tullio De Mauro</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="bici">Vedi sulla mappa</button></div-->
+          </li>
+		  <li>
+            <div class="time">12:30</div>
+            <div><div class="place">Arrivo — Parco Tiburtino III</div><div class="desc">Attività finali e chiusura evento</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="bici">Vedi sulla mappa</button></div-->
+          </li>
+        
+        </ol>
+
+        <!-- timeline passeggiata -->
+        <ol class="timeline timeline-piedi" data-type="piedi" style="display:none;">
+          <li>
+            <div class="time">11:00</div>
+            <div><div class="place">Partenza — Parco Tozzetti</div><div class="desc">Inizio passeggiata, ritmo rilassato, adatto a famiglie.</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="piedi">Vedi sulla mappa</button></div-->
+          </li>
+          <li>
+            <div class="time">11:10</div>
+            <div><div class="place">Scuola secondaria di primo grado – Scalarini</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="piedi">Vedi sulla mappa</button></div-->
+          </li>
+		  <li>
+            <div class="time">11:30</div>
+            <div><div class="place">I.C. Tullio De Mauro - Plesso Italo Calvino</div><div class="desc">Breve sosta e ricomposizione gruppo</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="piedi">Vedi sulla mappa</button></div-->
+          </li>
+          <li>
+            <div class="time">12:15</div>
+            <div><div class="place">Arrivo — Parco Tiburtino III</div><div class="desc">Attività finali e chiusura evento</div></div>
+            <!--div class="actions"><button class="map-btn" data-map-action="piedi">Vedi sulla mappa</button></div-->
+          </li>
+        </ol>
+      </div>
+    </div>
+
+  </div> <!-- /.percorso-grid -->
 </section>
 
+ 
+
+    <!-- PROMOTORI / SPONSOR -->
+    <section class="section" id="promotori">
+      <h2>Promotori culturali e Sponsor</h2>
+
+      <div class="logo-grid" aria-label="Loghi promotori">
+        <div class="logo-item"><img src="assets\img\Amici-parco-Tozzetti.jpeg" alt="Promotore" loading="lazy"></div>
+        <div class="logo-item"><img src="assets\img\Logo_bike4city.webp" alt="Promotore" loading="lazy"></div>
+        <div class="logo-item"><img src="assets\img\Bts-Colli-Aniene.png" alt="Promotore" loading="lazy"></div>
+        <div class="logo-item"><img src="assets\img\Cdq-colli-anine.jpeg" alt="Promotore" loading="lazy"></div>
+        <div class="logo-item"><img src="assets\img\Logo_Ass.webp" alt="Promotore" loading="lazy"></div>
+        <div class="logo-item"><img src="assets\img\Cdq-Rebibbia.jpeg" alt="Promotore" loading="lazy"></div>
+        <div class="logo-item"><img src="assets\img\Cdq-Torraccia.jpeg" alt="Promotore" loading="lazy"></div>
+        <div class="logo-item"><img src="assets\img\Rete-civica.jpeg" alt="Promotore" loading="lazy"></div>
+        <div class="logo-item"><img src="assets\img\tipi-attivi.jpeg" alt="Promotore" loading="lazy"></div>
+		<div class="logo-item"><img src="assets\img\il-foto.png" alt="Promotore" loading="lazy"></div>
+		<div class="logo-item"><img src="assets\img\inkpiu.jpeg" alt="Sponsor" loading="lazy"></div>
+		<div class="logo-item"><img src="assets\img\Parco-Tiburtino-III.jpg" alt="Sponsor" loading="lazy"></div>
+        <div class="logo-item has-text"><img src="assets\img\tecnorete.svg" alt="Tecnorete" alt="Sponsor" loading="lazy">
+		<p>Affiliato<br><strong>Studio Immobiliare Colli Aniene Srl</strong><br>Via Ettore Franceschini, 97 - Roma</p></div>       		
+      </div>
+
+      <p style="text-align:center"><em>Vuoi entrare a far parte dei nostri sponsor? <a href="https://forms.gle/DucGX46spXLdYcry5" target="_blank" rel="noopener noreferrer"><u>Scrivici!</u></a></em></p>
+    </section>
+
+    <!-- Info breve / Callout -->
     <section class="section" id="cos-e">
       <div class="cards">
         <div class="card">Non perderti l’occasione di celebrare insieme l’arrivo delle feste in modo sano e divertente</div>
       </div>
     </section>
 
+    <!-- Contatti -->
     <section class="section contacts-section" id="contatti">
       <h2>Contatti</h2>
       <p style="text-align:center">Per maggiori informazioni o altre richieste <a href="https://forms.gle/DucGX46spXLdYcry5" target="_blank" rel="noopener noreferrer"><u>compila il form</u></a></p>
@@ -354,13 +599,12 @@
     <small>&copy; 2025 Pedalata di Natale — Evento organizzato da Salvaiciclisti con il Patrocinio di Roma - Municipio IV</small>
   </footer>
 
-  <!-- Countdown script (pulito e robusto) -->
+  <!-- Countdown -->
   <script>
     (function(){
       const countdownEl = document.getElementById('countdown');
       const target = new Date("December 14, 2025 11:30:00").getTime();
       let timerId = null;
-
       function render() {
         const now = Date.now();
         const diff = target - now;
@@ -375,110 +619,251 @@
         const seconds = Math.floor((diff / 1000) % 60);
         countdownEl.innerHTML = `⏳ Mancano ${days} giorni, ${hours} ore, ${minutes} min e ${seconds} sec`;
       }
-
       render();
       timerId = setInterval(render, 1000);
     })();
   </script>
 
-  <!-- JS: gestione padding body per CTA fissa e migliorata gestione mappe -->
-<script>
+  <!-- JS: padding per CTA fissa e map/timeline logic (invariato) -->
+  <script>
   (function(){
-    // padding per CTA fissa su mobile: JS calcola l'altezza reale della CTA e applica padding al body
+    // padding per CTA fissa su mobile
     const joinSmall = document.querySelector('.join-small');
-    const footer = document.querySelector('footer'); // cambia contatti con footer
+    const footer = document.querySelector('footer');
     const MOBILE_BREAKPOINT = 740;
-
     function applyPaddingIfMobile() {
       if (!joinSmall) return;
       const vw = window.innerWidth || document.documentElement.clientWidth;
       if (vw <= MOBILE_BREAKPOINT) {
         const h = Math.ceil(joinSmall.getBoundingClientRect().height);
         document.body.style.paddingBottom = (h + 18) + 'px';
-        // anche al footer aggiungiamo un buffer per sicurezza
         if (footer) footer.style.paddingBottom = (h + 22) + 'px';
       } else {
         document.body.style.paddingBottom = '';
         if (footer) footer.style.paddingBottom = '';
       }
     }
-
     window.addEventListener('load', applyPaddingIfMobile);
-    let t; 
-    window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(applyPaddingIfMobile, 120); });
+    let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(applyPaddingIfMobile, 120); });
     window.addEventListener('orientationchange', () => { setTimeout(applyPaddingIfMobile, 140); });
     applyPaddingIfMobile();
 
-    // Map buttons: event listeners basati su data-map
-    function showMapType(type) {
-      document.querySelectorAll('.map-btn').forEach(btn => {
-        const active = btn.dataset.map === type;
-        btn.classList.toggle('active', active);
-        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    // Map & timeline controls: primary buttons (data-map) show map + timeline
+    function showMapAndTimeline(type) {
+      // maps
+      document.querySelectorAll('.map-frame').forEach(f => f.classList.remove('active'));
+      const mapEl = document.getElementById('map-' + type);
+      if (mapEl) mapEl.classList.add('active');
+      // timeline visibility
+      document.querySelectorAll('.timeline').forEach(tl => {
+        tl.style.display = tl.classList.contains('timeline-' + type) ? 'flex' : 'none';
       });
-      document.querySelectorAll('.map-frame').forEach(frame => frame.classList.remove('active'));
-      const target = document.getElementById('map-' + type);
-      if (target) target.classList.add('active');
+      // highlight primary map buttons
+      document.querySelectorAll('.map-btn').forEach(b => {
+        if (b.dataset.map) {
+          const active = b.dataset.map === type;
+          b.classList.toggle('active', active);
+          b.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+      });
+      // scroll map into view
+      if (mapEl) mapEl.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+	
+	// Call this after DOM is ready (se il tuo script è in fondo al body va bene così)
+(function syncItineraryHeight(){
+  const itin = document.querySelector('.percorso-itinerary .itinerary');
+  const mapFrameContainer = document.querySelector('.percorso-map');
+  const mapBici = document.getElementById('map-bici');
+  const mapPiedi = document.getElementById('map-piedi');
+
+  function ensureMapFramesVisibleOnClass() {
+    // rimuovi eventuali display inline che bloccano la classe .active
+    if (mapBici) mapBici.style.display = mapBici.classList.contains('active') ? 'block' : 'none';
+    if (mapPiedi) mapPiedi.style.display = mapPiedi.classList.contains('active') ? 'block' : 'none';
+  }
+
+  function updateHeight() {
+    if (!itin || !mapFrameContainer) return;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+
+    // su mobile (<=480) non forziamo max-height (lasciamo il normale flusso)
+    if (vw <= 480) {
+      itin.style.maxHeight = '';
+      return;
     }
 
+    // calcola l'altezza visibile della mappa (prende l'iframe effettivo se presente)
+    const iframe = mapFrameContainer.querySelector('iframe');
+    let h = 0;
+    if (iframe) {
+      // bounding rect più affidabile se l'iframe è visibile
+      const rect = mapFrameContainer.getBoundingClientRect();
+      h = Math.max(rect.height, iframe.getBoundingClientRect().height, 360);
+    } else {
+      h = mapFrameContainer.getBoundingClientRect().height || 420;
+    }
+
+    // imposta la max-height dell'itinerario (lascia un piccolo offset per padding)
+    itin.style.maxHeight = (Math.round(h) - 4) + 'px';
+    ensureMapFramesVisibleOnClass();
+  }
+
+  // aggiorna l'altezza in load/resize e quando cambi mappa
+  window.addEventListener('load', updateHeight);
+  window.addEventListener('resize', () => { clearTimeout(window._percorsoResize); window._percorsoResize = setTimeout(updateHeight, 120); });
+
+  // quando si cambia mappa/timeline, aggiorna
+  document.querySelectorAll('.map-btn').forEach(b => {
+    b.addEventListener('click', () => setTimeout(updateHeight, 220)); // leggera attesa dopo il repaint
+  });
+
+  // run once now
+  updateHeight();
+})();
+
+
+    // attach listeners
     document.querySelectorAll('.map-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const type = btn.dataset.map;
-        if (type) showMapType(type);
+      btn.addEventListener('click', (e) => {
+        const mapType = btn.dataset.map || btn.dataset.mapAction;
+        if (btn.dataset.map) {
+          // primary control clicked -> show both
+          showMapAndTimeline(mapType);
+        } else if (btn.dataset.mapAction) {
+          // timeline's "Vedi sulla mappa" clicked -> show that map only
+          showMapAndTimeline(mapType);
+        }
       });
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
-      });
+      btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); } });
     });
 
-    // inizializza stato aria per i bottoni
-    document.querySelectorAll('.map-btn').forEach(b => b.setAttribute('aria-pressed', b.classList.contains('active') ? 'true' : 'false'));
+    // initialize timelines: show bici by default
+    document.querySelectorAll('.timeline').forEach(tl => {
+      tl.style.display = tl.classList.contains('timeline-bici') ? 'flex' : 'none';
+    });
 
   })();
-</script>
+  </script>
 
-  <!-- JS: rende cliccabile tutta la .join-small -->
+  <!-- JS: rende cliccabile tutta la .join-small (invariato) -->
+  <script>
+  (function(){
+    const join = document.querySelector('.join-small');
+    if (!join) return;
+    const innerLink = join.querySelector('a.cta-btn');
+    const href = innerLink ? innerLink.getAttribute('href') : null;
+    const target = innerLink ? innerLink.getAttribute('target') : '_self';
+    join.setAttribute('role', 'link');
+    join.setAttribute('tabindex', '0');
+    join.style.cursor = 'pointer';
+    join.addEventListener('click', (e) => {
+      if (e.target.closest('a')) return;
+      if (!href) return;
+      if (target === '_blank') {
+        window.open(href, '_blank', 'noopener,noreferrer');
+      } else {
+        window.location.href = href;
+      }
+    });
+    join.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); join.click(); }
+    });
+  })();
+  </script>
+
+  <!-- JS: programma card behavior (simplified toggle, no fullscreen) -->
   <script>
 (function(){
-  // Seleziona la join-small e trova il link interno (se presente)
-  const join = document.querySelector('.join-small');
-  if (!join) return;
+  const progCards = document.querySelectorAll('.prog-card');
 
-  // preferisci usare l'href esistente nell'a.cta-btn
-  const innerLink = join.querySelector('a.cta-btn');
-  const href = innerLink ? innerLink.getAttribute('href') : null;
-  const target = innerLink ? innerLink.getAttribute('target') : '_self';
-  const rel = innerLink ? innerLink.getAttribute('rel') : '';
+  function closeAllPanels() {
+    document.querySelectorAll('.prog-panel.open').forEach(p => {
+      p.classList.remove('open');
+      p.setAttribute('aria-hidden','true');
+      const ctl = document.querySelector('[data-target="'+p.id+'"]');
+      if (ctl) ctl.setAttribute('aria-expanded','false');
+    });
+  }
 
-  // setta ruoli e cursore per accessibilità/usabilità
-  join.setAttribute('role', 'link');
-  join.setAttribute('tabindex', '0');
-  join.style.cursor = 'pointer';
+  progCards.forEach(card => {
+    const target = card.dataset.target;
+    const panel = document.getElementById(target);
 
-  // click/tap handler: apri il link nello stesso modo del link interno
-  join.addEventListener('click', (e) => {
-    // evita doppio-navigare se l'utente ha cliccato già sul link interno nativamente
-    if (e.target.closest('a')) return;
-    if (!href) return;
-    if (target === '_blank') {
-      window.open(href, '_blank', 'noopener,noreferrer');
-    } else {
-      window.location.href = href;
+    function toggle() {
+      // special case: bookmark to percorso section
+      if (target === 'percorso') {
+        const p = document.getElementById('percorso');
+        if (p) p.scrollIntoView({behavior:'smooth', block:'start'});
+        return;
+      }
+
+      if (!panel) return;
+
+      const isOpen = panel.classList.contains('open');
+      // always close others first
+      closeAllPanels();
+
+      if (!isOpen) {
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden','false');
+        card.setAttribute('aria-expanded','true');
+        // on mobile/desktop same inline behaviour; scroll into view for convenience
+        setTimeout(()=> panel.scrollIntoView({behavior:'smooth', block:'center'}), 120);
+      } else {
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden','true');
+        card.setAttribute('aria-expanded','false');
+      }
     }
+
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
   });
 
-  // supporto tastiera (Enter / Space)
-  join.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      // trigger click handler
-      join.click();
-    }
-  });
-
-  // Se vuoi evitare che l'a interno gestisca il click due volte, assicurati che il comportamento
-  // dell' <a> sia quello nativo (non serve cancellare l'evento).
 })();
+</script>
+<script>
+(function(){
+  // wrap automatico delle immagini in .prog-photo per garantire il fallback 16:9
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.prog-photo').forEach(function(container){
+      const img = container.querySelector('img');
+      if (!img) return;
+
+      // se è già dentro .img-wrap, non fare nulla
+      if (img.parentElement && img.parentElement.classList.contains('img-wrap')) return;
+
+      // crea il wrapper e sposta l'immagine dentro
+      const wrap = document.createElement('div');
+      wrap.className = 'img-wrap';
+      // sposta l'immagine dentro il wrapper
+      container.insertBefore(wrap, img);
+      wrap.appendChild(img);
+    });
+  });
+})();
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('.prog-photo').forEach(function(container){
+    const img = container.querySelector('img');
+    if (!img) {
+      container.classList.add('no-img');
+    } else {
+      // ensure image wrapper exists (existing script may already do this)
+      if (!container.querySelector('.img-wrap')) {
+        const wrap = document.createElement('div');
+        wrap.className = 'img-wrap';
+        const image = container.querySelector('img');
+        container.insertBefore(wrap, image);
+        wrap.appendChild(image);
+      }
+    }
+  });
+});
 </script>
 
 </body>
