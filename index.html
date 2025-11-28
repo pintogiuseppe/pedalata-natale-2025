@@ -52,7 +52,63 @@
     .join-small .cta-btn { display:inline-block; background:var(--accent); color:#fff; text-shadow:2px 2px 3px rgba(0,0,0,0.6); padding:0.6rem 1rem; border-radius:8px; font-family: "Permanent Marker", cursive; font-size: clamp(1.4rem, 5vw, 1.8rem); font-weight:800; text-decoration:none; }
 
     /* Countdown */
-    .countdown { text-shadow:2px 2px 3px rgba(0,0,0,0.6); color:#fff; font-weight:700; margin-top:1.2rem; font-size:1.05rem; text-align:center; font-style:italic; }
+    /* .countdown { text-shadow:2px 2px 3px rgba(0,0,0,0.6); color:#fff; font-weight:700; margin-top:1.2rem; font-size:1.05rem; text-align:center; font-style:italic; } */
+	.countdown {
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-weight: 700;
+  margin: 1.2rem;
+  font-size: 1.2rem;
+  text-align: center;
+  font-style: italic;
+}
+
+#countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 colonne per i 4 elementi */
+  gap: 20px; /* Spaziatura tra le colonne */
+  justify-items: center; /* Centra gli elementi orizzontalmente */
+  align-items: center; /* Centra gli elementi verticalmente */
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra il contenuto all'interno di ciascuna colonna */
+}
+
+#countdown-grid span:first-child {
+  font-size: 2rem;  /* Grandezza dei numeri */
+}
+
+#countdown-grid span:last-child {
+  font-size: 1rem;  /* Grandezza delle etichette */
+  margin-top: 5px;
+}
+
+.countdown-wrapper {
+  text-align: center; /* Centra tutto il contenuto */
+  margin-top: 20px;
+}
+
+.mancano {
+  font-size: 1.2rem; /* Grandezza della parola "Mancano" */
+  font-style: italic;
+  color: #fff;
+  margin-bottom: 20px; /* Distanza tra "Mancano" e il countdown */
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6); /* Aggiungi un po' di ombra per migliorare la visibilità */
+}
+
+.countdown-finished {
+  font-size: 3rem; /* Grandezza maggiore per la frase finale */
+  font-family:"Berkshire Swash", cursive; 
+  font-weight: 800;
+  color: #fff; /* Puoi scegliere il colore che preferisci */
+  /* text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7); */ /* Un po' di ombra per far risaltare meglio il testo */
+  font-size: clamp(1.4rem, 5vw, 3rem);
+  text-shadow:0 4px 12px rgba(0,0,0,0.45); 
+}
+
 
     /* Sections */
     .section { max-width: var(--maxw); margin: 3.2rem auto; padding: 0 1rem; }
@@ -394,7 +450,30 @@
           <a class="cta-btn" href="https://forms.gle/VrYPRFbYx7stWcEV7" target="_blank" rel="noopener noreferrer">ISCRIVITI ORA!</a>
         </div>
 
-        <div id="countdown" class="countdown" aria-live="polite" aria-atomic="true"></div>
+        <!--div id="countdown" class="countdown" aria-live="polite" aria-atomic="true"></div-->
+		<div id="countdown-wrapper" class="countdown-wrapper">
+  <div id="mancano" class="mancano">MANCANO</div>
+  <div id="countdown" class="countdown" aria-live="polite" aria-atomic="true">
+    <div id="countdown-grid">
+      <div class="countdown-item">
+        <span id="days"></span>
+        <span>GIORNI</span>
+      </div>
+      <div class="countdown-item">
+        <span id="hours"></span>
+        <span>ORE</span>
+      </div>
+      <div class="countdown-item">
+        <span id="minutes"></span>
+        <span>MINUTI</span>
+      </div>
+      <div class="countdown-item">
+        <span id="seconds"></span>
+        <span>SECONDI</span>
+      </div>
+    </div>
+  </div>
+</div>
         <div id="cta-sentinel" aria-hidden="true" style="height:1px; width:100%; display:block;"></div>
       </div>
     </div>
@@ -632,7 +711,7 @@
   </footer>
 
   <!-- Countdown -->
-  <script>
+  <!--script>
     (function(){
       const countdownEl = document.getElementById('countdown');
       const target = new Date("December 14, 2025 11:30:00").getTime();
@@ -654,7 +733,64 @@
       render();
       timerId = setInterval(render, 1000);
     })();
-  </script>
+</script-->
+<script>
+  (function(){
+    const countdownEl = document.getElementById('countdown');
+    const mancatoEl = document.getElementById('mancano'); // Elemento "Mancano"
+    const countdownWrapperEl = document.getElementById('countdown-wrapper'); // Il wrapper che contiene tutto
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    
+    const target = new Date("December 14, 2025 10:00:00").getTime(); // Imposta il momento dell'evento
+    const eventDate = new Date("December 14, 2025"); // Data dell'evento (solo il giorno)
+    let timerId = null;
+    
+    // Funzione per nascondere il countdown dopo le 13:00
+    function hideCountdownAfterEvent() {
+      const now = new Date();
+      const eventDayAt13 = new Date(eventDate);
+      eventDayAt13.setHours(13, 0, 0); // Imposta le 13:00 del giorno dell'evento
+
+      // Se l'orario attuale è dopo le 13:00 del giorno dell'evento, nascondiamo tutto
+      if (now >= eventDayAt13) {
+        countdownWrapperEl.style.display = "none"; // Nasconde l'intero wrapper del countdown
+      }
+    }
+
+    function render() {
+      const now = Date.now();
+      const diff = target - now;
+      
+      // Nascondi il countdown dopo le 13:00
+      hideCountdownAfterEvent();
+	  
+      if (diff <= 0) {
+        countdownEl.innerHTML = "È il grande giorno!";
+        countdownEl.classList.add('countdown-finished'); // Aggiungi la classe per il testo più grande
+        mancatoEl.style.display = "none"; // Nascondi la parola "Mancano"
+        if (timerId) clearInterval(timerId);
+        return;
+      }
+      
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      
+      // Aggiungi i numeri nei rispettivi span
+      daysEl.textContent = days;
+      hoursEl.textContent = hours;
+      minutesEl.textContent = minutes;
+      secondsEl.textContent = seconds;
+    }
+
+    render();
+    timerId = setInterval(render, 1000);
+  })();
+</script>
 
   <!-- JS: padding per CTA fissa e map/timeline logic (invariato) -->
   <script>
